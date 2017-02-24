@@ -163,6 +163,28 @@ namespace CorebergConsoleInstaller
             }
             else Uninstall();
         }
+        public static void Uninstall(string how, string idc)
+        {
+            if (how == "silent")
+            {
+                if ((InstalledSoftware.NameContain("teamviewer"))&& (InstalledSoftware.NameContain("msi")))
+                {
+                    try
+                    {
+                        string arguments = "/x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi\" /norestart /passive";
+                        Process process = new Process();
+                        process.StartInfo.FileName = "msiexec.exe";
+                        process.StartInfo.Arguments = string.Format(arguments);
+                        process.StartInfo.UseShellExecute = false;
+                        process.StartInfo.CreateNoWindow = false;
+                        process.Start();
+                        process.WaitForExit();
+                    }
+                    catch (Exception) { }
+                }
+            }
+            else Uninstall();
+        }
 
         public static void Install(string idc)
         {
@@ -188,6 +210,7 @@ namespace CorebergConsoleInstaller
             process.WaitForExit();
 
         }
+
         public static void Assign(string apitoken, string tag_company, int tag_number)
         {
             Process process = new Process();
