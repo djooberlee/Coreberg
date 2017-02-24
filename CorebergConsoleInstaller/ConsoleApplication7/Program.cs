@@ -26,7 +26,9 @@ namespace CorebergConsoleInstaller
             }*/
             //TeamViewer.Install(idc);
             //TeamViewer.Assign(apitoken, tag_company, tag_number);
-            TeamViewer.Uninstall("silent");
+            //TeamViewer.Uninstall("silent");
+            TeamViewer.DisplayInfo();
+            TeamViewer.Install(idc);
             Console.ReadKey();
         }
     }
