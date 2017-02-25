@@ -93,23 +93,26 @@ namespace CorebergConsoleInstaller
 
         static void GetTVpath()
         {
-            string key_value = "NOT FOUND";
-
             try
             {
-                Microsoft.Win32.RegistryKey registryKey64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\TeamViewer");
-                RegistryKey registryKey32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\TeamViewer");
-                if (!Environment.Is64BitOperatingSystem)
+                string key_value = "NOT FOUND";
+
+                try
                 {
-                    key_value = Registry.GetValue(registryKey32.Name, "InstallationDirectory", "NOT FOUND").ToString();
+                    Microsoft.Win32.RegistryKey registryKey64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\TeamViewer");
+                    RegistryKey registryKey32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\TeamViewer");
+                    if (!Environment.Is64BitOperatingSystem)
+                    {
+                        key_value = Registry.GetValue(registryKey32.Name, "InstallationDirectory", "NOT FOUND").ToString();
+                    }
+                    else
+                    {
+                        key_value = Registry.GetValue(registryKey64.Name, "InstallationDirectory", "NOT FOUND").ToString();
+                    }
                 }
-                else
-                {
-                    key_value = Registry.GetValue(registryKey64.Name, "InstallationDirectory", "NOT FOUND").ToString();
-                }
-            }
-            catch (System.Exception) { tvistallpath = "notinstalled"; }
-            tvistallpath = key_value;
+                catch (System.Exception) { tvistallpath = "notinstalled"; }
+                tvistallpath = key_value;
+            }catch (Exception) { Console.WriteLine("не сработал GetTVpath()"); }
         }
 
         static void GetTVversion()
@@ -180,8 +183,7 @@ namespace CorebergConsoleInstaller
             try
             {
                 File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\"+ GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi");
-            }
-            catch (System.Exception) {}
+            
             Console.WriteLine("Установка \"Teamviewer\".");
             Process process = new Process();
             process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer"; //sets the working directory in which the exe file resides.
@@ -194,6 +196,8 @@ namespace CorebergConsoleInstaller
             process.WaitForExit();
             Console.WriteLine("Установка \"Teamviewer\" завершена.");
             Console.WriteLine();
+            }
+            catch (System.Exception) { Console.WriteLine("проблема гдето в Install()"); }
         }
 
         public static void Assign(string apitoken, string tag_company, int tag_number)

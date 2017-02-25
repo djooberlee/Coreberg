@@ -17,25 +17,50 @@ namespace CorebergConsoleInstaller
             //string apitoken = "1896401-MFly66TCw962nl8qdCP4";
             //string tag_company = "Coreberg";
             //int tag_number = 200001;
-
-            TeamViewer.DisplayInfo();
-            TeamViewer.Uninstall();
-            TeamViewer.DisplayInfo();
-            Console.WriteLine(" press any key...");
-            Console.ReadKey();
-            Console.WriteLine();
-
-            TeamViewer.Install(idc);
-            TeamViewer.DisplayInfo();
-            Console.WriteLine(" press any key...");
-            Console.ReadKey();
-            Console.WriteLine();
-
-            TeamViewer.Uninstall();
-            TeamViewer.DisplayInfo();
-            Console.WriteLine(" press any key...");
-            Console.ReadKey();
-            Console.WriteLine();
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Teamviewer\\"))
+            {
+                Console.WriteLine("в инсталяторе не найден каталог Teamviwer");
+                Console.WriteLine();
+                Console.WriteLine(" press any key...");
+                Console.ReadKey();
+                return;
+            }
+            if (InstalledSoftware.NameContain("Teamviewer"))
+            {
+                Console.WriteLine("что-то установлено");
+                TeamViewer.DisplayInfo();
+                TeamViewer.Uninstall();
+                Console.WriteLine(" press any key...");
+                Console.ReadKey();
+                Console.WriteLine();
+            }
+            else
+            {
+                TeamViewer.Install(idc);
+                Console.WriteLine("только что установили");
+                TeamViewer.DisplayInfo();
+                Console.WriteLine(" press any key...");
+                Console.ReadKey();
+                Console.WriteLine();
+            }
+            if (InstalledSoftware.NameContain("Teamviewer"))
+            {
+                Console.WriteLine("что-то установлено");
+                TeamViewer.DisplayInfo();
+                TeamViewer.Uninstall();
+                Console.WriteLine(" press any key...");
+                Console.ReadKey();
+                Console.WriteLine();
+            }
+            else
+            {
+                TeamViewer.Install(idc);
+                Console.WriteLine("только что установили");
+                TeamViewer.DisplayInfo();
+                Console.WriteLine(" press any key...");
+                Console.ReadKey();
+                Console.WriteLine();
+            }
         }
     }
 }
