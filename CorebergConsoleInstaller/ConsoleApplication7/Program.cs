@@ -13,20 +13,29 @@ namespace CorebergConsoleInstaller
     {
         static void Main(string[] args)
         {
-
             string idc = "j3ybf6m";
             //string apitoken = "1896401-MFly66TCw962nl8qdCP4";
             //string tag_company = "Coreberg";
             //int tag_number = 200001;
-            TeamViewer.Install(idc);
+
             TeamViewer.DisplayInfo();
-            Console.WriteLine(" press any key...");
-            Console.ReadKey();
             TeamViewer.Uninstall();
             TeamViewer.DisplayInfo();
             Console.WriteLine(" press any key...");
             Console.ReadKey();
+            Console.WriteLine();
 
+            TeamViewer.Install(idc);
+            TeamViewer.DisplayInfo();
+            Console.WriteLine(" press any key...");
+            Console.ReadKey();
+            Console.WriteLine();
+
+            TeamViewer.Uninstall();
+            TeamViewer.DisplayInfo();
+            Console.WriteLine(" press any key...");
+            Console.ReadKey();
+            Console.WriteLine();
         }
     }
 }

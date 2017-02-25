@@ -139,33 +139,33 @@ namespace CorebergConsoleInstaller
             {
                 if (InstalledSoftware.NameContain("teamviewer", "msi"))
                 {
-                    Console.WriteLine("Сейчас должен удалиться " + InstalledSoftware.GetNameContain("teamviewer", "msi"));
+                    Console.WriteLine("Удаляем \"" + InstalledSoftware.GetNameContain("teamviewer", "msi")+ "\"");
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = TeamViewer.Path; //sets the working directory in which the exe file resides.
                     process.StartInfo.FileName = string.Format(TeamViewer.Path + "\\uninstall.exe");
-                    process.StartInfo.Arguments = "/S";
+                    process.StartInfo.Arguments = " /S";
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.CreateNoWindow = false;
-                    Console.WriteLine();
-                    Console.WriteLine("Попытка запуска: "+ process.StartInfo.FileName + process.StartInfo.Arguments);
-                    Console.WriteLine();
+                    Console.WriteLine("Запуск: "+ process.StartInfo.FileName + process.StartInfo.Arguments);
                     process.Start();
                     process.WaitForExit();
+                    Console.WriteLine("Удаление завершено.");
+                    Console.WriteLine();
                 }
-                if (InstalledSoftware.NameContain("teamviewer"))
+                if (InstalledSoftware.NameContain2("teamviewer","msi"))
                 {
-                    Console.WriteLine("Сейчас должен удалиться " + InstalledSoftware.GetNameContain2("teamviewer", "msi"));
+                    Console.WriteLine("Удаляем \"" + InstalledSoftware.GetNameContain2("teamviewer", "msi")+ "\"");
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
                     process.StartInfo.FileName = "msiexec.exe";
-                    process.StartInfo.Arguments = "/x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\" + TeamViewer.GetMSIPackegeName() + "\" /norestart /passive";
+                    process.StartInfo.Arguments = " /x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\" + TeamViewer.GetMSIPackegeName() + "\" /norestart /qn";
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.CreateNoWindow = false;
-                    Console.WriteLine();
-                    Console.WriteLine("Попытка запуска: " + process.StartInfo.FileName + process.StartInfo.Arguments);
-                    Console.WriteLine();
+                    Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
                     process.Start();
                     process.WaitForExit();
+                    Console.WriteLine("Удаление завершено.");
+                    Console.WriteLine();
                 }
 
             }
@@ -175,47 +175,6 @@ namespace CorebergConsoleInstaller
             }
         }
 
-        /*public static void Uninstall(string how)
-        {
-            if (how == "silent")
-            {
-                if (InstalledSoftware.NameContained("teamviewer", "msi"))
-                {
-                    Process process = new Process();
-                    process.StartInfo.FileName = string.Format(TeamViewer.Path + "\\uninstall.exe");
-                    process.StartInfo.Arguments = string.Format("/S"); //Pass the number of arguments.
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = false;
-                    process.Start();
-                    process.WaitForExit();
-                }
-            }
-            else Uninstall();
-        }*/
-
-        /*public static void Uninstall(string how, string idc)
-        {
-            if (how == "silent")
-            {
-                if ((InstalledSoftware.NameContain("teamviewer"))&& (InstalledSoftware.NameContain("msi")))
-                {
-                    try
-                    {
-                        string arguments = "/x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi\" /norestart /passive";
-                        Process process = new Process();
-                        process.StartInfo.FileName = "msiexec.exe";
-                        process.StartInfo.Arguments = string.Format(arguments);
-                        process.StartInfo.UseShellExecute = false;
-                        process.StartInfo.CreateNoWindow = false;
-                        process.Start();
-                        process.WaitForExit();
-                    }
-                    catch (Exception) { }
-                }
-            }
-            else Uninstall();
-        }*/
-
         public static void Install(string idc)
         {
             try
@@ -223,15 +182,18 @@ namespace CorebergConsoleInstaller
                 File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\"+ GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi");
             }
             catch (System.Exception) {}
+            Console.WriteLine("Установка \"Teamviewer\".");
             Process process = new Process();
             process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer"; //sets the working directory in which the exe file resides.
             process.StartInfo.FileName = "msiexec.exe";
-            process.StartInfo.Arguments = "/package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() +  "\" /norestart /passive";
+            process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() +  "\" /norestart /qn";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = false;
+            Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
             process.Start();
             process.WaitForExit();
-
+            Console.WriteLine("Установка \"Teamviewer\" завершена.");
+            Console.WriteLine();
         }
 
         public static void Assign(string apitoken, string tag_company, int tag_number)
