@@ -78,45 +78,67 @@ namespace CorebergConsoleInstaller
             Console.WriteLine();
         }
 
-        static public bool NameContain(string str)
+        static public bool NameContain(string contain)
         {
             MakeList();
             bool flag = false ;
             for (int i = 0; i < swnames.Length; i++)
             {
-                if (swnames[i].ToLower().Contains(str.ToLower()))
+                if (swnames[i].ToLower().Contains(contain.ToLower()))
                 {
-                    //Console.Write("ВЕРНО: ");
                     flag = true;
-                }
-               // else Console.Write("ЛОЖЬ: ");
-              //  Console.WriteLine("{0} содержится в {1}", str, swnames[i]);               
+                }             
             }
             return flag;
         }
 
-        static public bool NameContained(string str1, string str2)
+        static public bool NameContain(string contain, string not_contain)
         {
             MakeList();
             bool flag = false;
             for (int i = 0; i < swnames.Length; i++)
             {
-                if ((swnames[i].ToLower().Contains(str1.ToLower()))&& !(swnames[i].ToLower().Contains(str1.ToLower())))
+                if ((swnames[i].ToLower().Contains(contain.ToLower()))&& !(swnames[i].ToLower().Contains(not_contain.ToLower())))
                 {
-                    //Console.Write("ВЕРНО: ");
                     flag = true;
-                }
-                // else Console.Write("ЛОЖЬ: ");
-                //  Console.WriteLine("{0} содержится в {1}", str, swnames[i]);               
+                }            
             }
             return flag;
         }
-        static public string GetNameContained(string str1, string str2)
+
+        static public bool NameContain2(string contain1, string contain2)
         {
-            string name = string.Format("installed software with \"{0}\" and \"{1}\" in names not found", str1, str2);
+            MakeList();
+            bool flag = false;
             for (int i = 0; i < swnames.Length; i++)
             {
-                if ((swnames[i].ToLower().Contains(str1.ToLower())) && (swnames[i].ToLower().Contains(str1.ToLower())))
+                if ((swnames[i].ToLower().Contains(contain1.ToLower())) && (swnames[i].ToLower().Contains(contain2.ToLower())))
+                {
+                    flag = true;
+                }
+            }
+            return flag;
+        }
+
+        static public string GetNameContain(string contain, string not_contain)
+        {
+            string name = $"Not found in installed software, with \"{contain}\" and without \"{not_contain}\" in name";
+            for (int i = 0; i < swnames.Length; i++)
+            {
+                if ((swnames[i].ToLower().Contains(contain.ToLower())) && (!swnames[i].ToLower().Contains(not_contain.ToLower())))
+                {
+                    name = swnames[i];
+                    break;
+                }
+            }
+            return name;
+        }
+        static public string GetNameContain2(string contain1, string contain2)
+        {
+            string name = $"Not found in installed software, with \"{contain1}\" and with \"{contain2}\" in name";
+            for (int i = 0; i < swnames.Length; i++)
+            {
+                if ((swnames[i].ToLower().Contains(contain1.ToLower())) && (swnames[i].ToLower().Contains(contain2.ToLower())))
                 {
                     name = swnames[i];
                     break;

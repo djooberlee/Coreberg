@@ -13,27 +13,20 @@ namespace CorebergConsoleInstaller
     {
         static void Main(string[] args)
         {
-        
+
             string idc = "j3ybf6m";
             //string apitoken = "1896401-MFly66TCw962nl8qdCP4";
             //string tag_company = "Coreberg";
             //int tag_number = 200001;
-            // if (InstalledSoftware.NameEquals("TeamViewer 12")) { Console.WriteLine("Ща запуститься удаляшка"); TeamViewer.Uninstall("silent"); }
-            /*if (InstalledSoftware.NameEquals("TeamViewer 12"))
-            {
-             TeamViewer.Install(idc);
-               
-                TeamViewer.DisplayInfo();
-            }*/
-            //TeamViewer.Install(idc);
-            //TeamViewer.Assign(apitoken, tag_company, tag_number);
-            //TeamViewer.Uninstall("silent");
-            // TeamViewer.DisplayInfo();
-            // TeamViewer.Install(idc);
-            //Console.ReadKey();
+            TeamViewer.Install(idc);
+            TeamViewer.DisplayInfo();
+            Console.WriteLine(" press any key...");
+            Console.ReadKey();
+            TeamViewer.Uninstall();
+            TeamViewer.DisplayInfo();
+            Console.WriteLine(" press any key...");
+            Console.ReadKey();
 
-            //string[] files = Directory.GetFiles(string.Format(Directory.GetCurrentDirectory()+"\\Teamviewer"),"*.msi");
-            Console.WriteLine(TeamViewer.GetMSIPackegeName());
         }
     }
 }
