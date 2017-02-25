@@ -11,6 +11,7 @@ namespace CorebergConsoleInstaller
         static string tvistallpath;
         static string tvversion;
         // static string tvservicename;
+        static string msi_packege_name;
 
         static public int ID
         {
@@ -47,6 +48,7 @@ namespace CorebergConsoleInstaller
             {
             }
         }
+
 
         static public void DisplayInfo()
         {
@@ -133,10 +135,13 @@ namespace CorebergConsoleInstaller
 
         static void Uninstall()
         {
+            
+            
             try
             {
-                if (InstalledSoftware.NameContain("teamviewer", "msi"))
+                if (InstalledSoftware.NameContained("teamviewer", "msi"))
                 {
+                    Console.WriteLine(InstalledSoftware.GetNameContained("teamviewer", "msi"));
                     Process.Start(TeamViewer.Path + "\\uninstall.exe");
                 }
             }
@@ -146,11 +151,11 @@ namespace CorebergConsoleInstaller
             }
         }
 
-        public static void Uninstall(string how)
+        /*public static void Uninstall(string how)
         {
             if (how == "silent")
             {
-                if (InstalledSoftware.NameContain("teamviewer", "msi"))
+                if (InstalledSoftware.NameContained("teamviewer", "msi"))
                 {
                     Process process = new Process();
                     process.StartInfo.FileName = string.Format(TeamViewer.Path + "\\uninstall.exe");
@@ -162,8 +167,9 @@ namespace CorebergConsoleInstaller
                 }
             }
             else Uninstall();
-        }
-        public static void Uninstall(string how, string idc)
+        }*/
+
+        /*public static void Uninstall(string how, string idc)
         {
             if (how == "silent")
             {
@@ -184,7 +190,7 @@ namespace CorebergConsoleInstaller
                 }
             }
             else Uninstall();
-        }
+        }*/
 
         public static void Install(string idc)
         {
@@ -221,6 +227,21 @@ namespace CorebergConsoleInstaller
             process.StartInfo.CreateNoWindow = false;
             process.Start();
             process.WaitForExit();
+        }
+
+        public static string GetMSIPackegeName()
+        {
+            try
+            {
+                foreach (string i in Directory.GetFiles(string.Format(Directory.GetCurrentDirectory() + "\\Teamviewer"), "*.msi"))
+                {
+                    msi_packege_name = i.Split('\\')[(i.Split('\\').Length) - 1];
+                    Console.WriteLine("Имя MSI-пакета Teamviewer, лежашего в каталоге инсталятора: {0}", msi_packege_name);
+                }
+            }
+            catch (Exception) { Console.WriteLine("Видимо MSI-пакета Teamviewer, в каталоге инсталятора нет"); }
+            Console.ReadKey();
+            return msi_packege_name;
         }
     }
 }

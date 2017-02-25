@@ -13,6 +13,7 @@ namespace CorebergConsoleInstaller
     {
         static void Main(string[] args)
         {
+        
             string idc = "j3ybf6m";
             //string apitoken = "1896401-MFly66TCw962nl8qdCP4";
             //string tag_company = "Coreberg";
@@ -27,9 +28,12 @@ namespace CorebergConsoleInstaller
             //TeamViewer.Install(idc);
             //TeamViewer.Assign(apitoken, tag_company, tag_number);
             //TeamViewer.Uninstall("silent");
-            TeamViewer.DisplayInfo();
-            TeamViewer.Install(idc);
-            Console.ReadKey();
+            // TeamViewer.DisplayInfo();
+            // TeamViewer.Install(idc);
+            //Console.ReadKey();
+
+            //string[] files = Directory.GetFiles(string.Format(Directory.GetCurrentDirectory()+"\\Teamviewer"),"*.msi");
+            Console.WriteLine(TeamViewer.GetMSIPackegeName());
         }
     }
 }

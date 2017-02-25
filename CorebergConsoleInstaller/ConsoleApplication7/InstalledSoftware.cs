@@ -95,7 +95,7 @@ namespace CorebergConsoleInstaller
             return flag;
         }
 
-        static public bool NameContain(string str1, string str2)
+        static public bool NameContained(string str1, string str2)
         {
             MakeList();
             bool flag = false;
@@ -110,6 +110,19 @@ namespace CorebergConsoleInstaller
                 //  Console.WriteLine("{0} содержится в {1}", str, swnames[i]);               
             }
             return flag;
+        }
+        static public string GetNameContained(string str1, string str2)
+        {
+            string name = string.Format("installed software with \"{0}\" and \"{1}\" in names not found", str1, str2);
+            for (int i = 0; i < swnames.Length; i++)
+            {
+                if ((swnames[i].ToLower().Contains(str1.ToLower())) && (swnames[i].ToLower().Contains(str1.ToLower())))
+                {
+                    name = swnames[i];
+                    break;
+                }
+            }
+            return name;
         }
 
         static public bool NameEquals(string str1)
