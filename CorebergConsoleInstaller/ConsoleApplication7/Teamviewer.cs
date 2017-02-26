@@ -112,7 +112,8 @@ namespace CorebergConsoleInstaller
                 }
                 catch (System.Exception) { tvistallpath = "notinstalled"; }
                 tvistallpath = key_value;
-            }catch (Exception) { Console.WriteLine("не сработал GetTVpath()"); }
+            }
+            catch (Exception) { Console.WriteLine("не сработал GetTVpath()"); }
         }
 
         static void GetTVversion()
@@ -142,22 +143,22 @@ namespace CorebergConsoleInstaller
             {
                 if (InstalledSoftware.NameContain("teamviewer", "msi"))
                 {
-                    Console.WriteLine("Удаляем \"" + InstalledSoftware.GetNameContain("teamviewer", "msi")+ "\"");
+                    Console.WriteLine("Удаляем \"" + InstalledSoftware.GetNameContain("teamviewer", "msi") + "\"");
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = TeamViewer.Path; //sets the working directory in which the exe file resides.
                     process.StartInfo.FileName = string.Format(TeamViewer.Path + "\\uninstall.exe");
                     process.StartInfo.Arguments = " /S";
                     process.StartInfo.UseShellExecute = false;
                     process.StartInfo.CreateNoWindow = false;
-                    Console.WriteLine("Запуск: "+ process.StartInfo.FileName + process.StartInfo.Arguments);
+                    Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
                     process.Start();
                     process.WaitForExit();
                     Console.WriteLine("Удаление завершено.");
                     Console.WriteLine();
                 }
-                if (InstalledSoftware.NameContain2("teamviewer","msi"))
+                if (InstalledSoftware.NameContain2("teamviewer", "msi"))
                 {
-                    Console.WriteLine("Удаляем \"" + InstalledSoftware.GetNameContain2("teamviewer", "msi")+ "\"");
+                    Console.WriteLine("Удаляем \"" + InstalledSoftware.GetNameContain2("teamviewer", "msi") + "\"");
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
                     process.StartInfo.FileName = "msiexec.exe";
@@ -178,38 +179,41 @@ namespace CorebergConsoleInstaller
             }
         }
 
-        public static void Install(string idc)
+        public static void Install(string tag_company, string idc)
         {
             try
             {
-                File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\"+ GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi");
-            
-            Console.WriteLine("Установка \"Teamviewer\".");
-            Process process = new Process();
-            process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer"; //sets the working directory in which the exe file resides.
-            process.StartInfo.FileName = "msiexec.exe";
-            process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() +  "\" /norestart /qn";
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = false;
-            Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
-            process.Start();
-            process.WaitForExit();
-            Console.WriteLine("Установка \"Teamviewer\" завершена.");
-            Console.WriteLine();
+                File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi");
+                File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company +".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings_" + tag_company + ".REG", true);
+                Console.WriteLine("Установка \"Teamviewer_Host\".");
+                Process process = new Process();
+                process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer"; //sets the working directory in which the exe file resides.
+                process.StartInfo.FileName = "msiexec.exe";
+                process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /qn";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = false;
+                Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
+                process.Start();
+                process.WaitForExit();
+                Console.WriteLine("Установка \"Teamviewer\" завершена.");
+                Console.WriteLine();
             }
-            catch (System.Exception) { Console.WriteLine("проблема гдето в Install()"); }
+            catch (System.Exception) { Console.WriteLine("проблема гдето в Teamviewe.Install()"); }
         }
 
         public static void Assign(string apitoken, string tag_company, int tag_number)
         {
+            Console.WriteLine("Приязка клиента \"Teamviewer\" к учетной записи admini@coreberg.com.");
             Process process = new Process();
             process.StartInfo.WorkingDirectory = string.Format(Directory.GetCurrentDirectory() + "\\TeamViewer"); //sets the working directory in which the exe file resides.
-            process.StartInfo.FileName = "tv_assignement.exe";
+            process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\Teamviewer\\tv_assignement.exe";
             process.StartInfo.Arguments = string.Format("-apitoken " + apitoken + " -allowEasyAccess -devicealias " + tag_company + "-" + tag_number + " -wait \"30\" -datafile \"" + Path + "\\AssignmentData.json\" -verbose"); //Pass the number of arguments.
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = false;
             process.Start();
             process.WaitForExit();
+            Console.WriteLine("Приязка клиента \"Teamviewer\" к учетной записи admini@coreberg.com завершена.");
+            Console.WriteLine();
         }
 
         public static string GetMSIPackegeName()
