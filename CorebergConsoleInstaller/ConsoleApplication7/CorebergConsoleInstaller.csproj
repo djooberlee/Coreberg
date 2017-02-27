@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clients.cs" />
     <Compile Include="InstalledSoftware.cs" />
     <Compile Include="OCS.cs" />
     <Compile Include="Program.cs" />
