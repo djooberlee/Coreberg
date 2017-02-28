@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -9,8 +9,8 @@ namespace CorebergConsoleInstaller
 {
     class OCS
     {
-        static string user="Coreberg";
-        static string pwd= "CoreAgent098";
+        static string user="";
+        static string pwd= "";
 
         public static void Install(string tag_company, int tag_number)
         {
