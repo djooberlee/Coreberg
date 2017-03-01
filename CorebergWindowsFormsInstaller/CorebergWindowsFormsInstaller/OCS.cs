@@ -10,8 +10,8 @@ namespace CorebergWindowsFormsInstaller
 {
     class OCS
     {
-        static string user = "";
-        static string pwd = "";
+        static string user = "coreberg";
+        static string pwd = "CoreAgent098";
 
         public static void Install(string tag_company, int tag_number)
         {
