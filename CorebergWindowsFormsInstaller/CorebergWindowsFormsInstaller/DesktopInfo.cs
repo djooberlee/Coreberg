@@ -37,7 +37,7 @@ namespace CorebergWindowsFormsInstaller
             catch (Exception exc)
             {
                 MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString()); // вызвать метод ToString()
+                MessageBox.Show(exc.ToString());
                 MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);

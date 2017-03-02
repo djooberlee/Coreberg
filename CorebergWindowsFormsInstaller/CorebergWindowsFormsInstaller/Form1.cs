@@ -21,12 +21,11 @@ namespace CorebergWindowsFormsInstaller
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             progressBar1.Value = 10;
             if (InstalledSoftware.NameContain("Teamviewer"))
-            {               
-                TeamViewer.Uninstall();
+            {
                 progressBar1.Value = 15;
+                TeamViewer.Uninstall();
                 progressBar1.Value = 25;
                 TeamViewer.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
                 progressBar1.Value = 50;
@@ -35,9 +34,8 @@ namespace CorebergWindowsFormsInstaller
             {
                 progressBar1.Value = 15;
                 TeamViewer.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
-                progressBar1.Value = 45;
-            }
-            
+                progressBar1.Value = 50;
+            }            
             
             OCS.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
             progressBar1.Value = 80;
@@ -47,7 +45,6 @@ namespace CorebergWindowsFormsInstaller
             progressBar1.Value = 100;
             MessageBox.Show("установка завершена");
 
-            //if ((checkBox1.Checked) && (checkBox2.Checked) && (checkBox3.Checked) && (checkBox4.Checked)){}
         }
     }
 }

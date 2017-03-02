@@ -15,7 +15,6 @@ namespace CorebergWindowsFormsInstaller
         static int tvid;
         static string tvistallpath;
         static string tvversion;
-        //static string[] clients;
         static string msi_packege_name;
         static string apitoken;
         static string idc;
@@ -27,9 +26,6 @@ namespace CorebergWindowsFormsInstaller
                 GetTVID();
                 return tvid;
             }
-            private set
-            {
-            }
         }
 
         static public string Path
@@ -38,9 +34,6 @@ namespace CorebergWindowsFormsInstaller
             {
                 GetTVpath();
                 return tvistallpath;
-            }
-            private set
-            {
             }
         }
 
@@ -51,33 +44,8 @@ namespace CorebergWindowsFormsInstaller
                 GetTVversion();
                 return tvversion;
             }
-            private set
-            {
-            }
         }
 
-        static public void DisplayInfo()
-        {
-            if (InstalledSoftware.NameContain("teamviewer"))
-            {
-                GetTVID();
-                //Console.WriteLine("Teamviewer ID: {0}", ID);
-                //Console.WriteLine("Каталог установки: {0}", Path);
-                if (Services.Check("teamviewer"))
-                {
-                    Console.Write("Имя сервиса: ");
-                    Services.DisplayList("teamviewer");
-                }
-                else
-                {
-                    //Console.WriteLine("Как сервис не установлен."); 
-                }
-            }
-            else
-            {
-                //Console.WriteLine("В системе не найдено установленного Teamviewer.");
-            }
-        }
 
         static void GetTVID()
         {
@@ -125,7 +93,7 @@ namespace CorebergWindowsFormsInstaller
             catch (Exception exc)
             {
                 MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString()); // вызвать метод ToString()
+                MessageBox.Show(exc.ToString());
                 MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
@@ -159,41 +127,29 @@ namespace CorebergWindowsFormsInstaller
             {
                 if (InstalledSoftware.NameContain("teamviewer", "msi"))
                 {
-                    //Console.WriteLine("Удаляем \"" + InstalledSoftware.GetNameContain("teamviewer", "msi") + "\"");
+
                     Process process = new Process();
-                    process.StartInfo.WorkingDirectory = TeamViewer.Path; //sets the working directory in which the exe file resides.
+                    process.StartInfo.WorkingDirectory = TeamViewer.Path;
                     process.StartInfo.FileName = string.Format(TeamViewer.Path + "\\uninstall.exe");
                     process.StartInfo.Arguments = " /S";
-                    //process.StartInfo.UseShellExecute = false;
-                    //process.StartInfo.CreateNoWindow = true;
-                    //Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
                     process.Start();
                     process.WaitForExit();
-                    //Console.WriteLine("Удаление завершено.");
-                    //Console.WriteLine();
                 }
                 if (InstalledSoftware.NameContain2("teamviewer", "msi"))
                 {
-                    //Console.WriteLine("Удаляем \"" + InstalledSoftware.GetNameContain2("teamviewer", "msi") + "\"");
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
                     process.StartInfo.FileName = "msiexec.exe";
                     process.StartInfo.Arguments = " /x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\" + TeamViewer.GetMSIPackegeName() + "\" /norestart /qn";
-                    //process.StartInfo.Arguments = " /x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\" + TeamViewer.GetMSIPackegeName() + "\" /norestart /passive";
-                    //process.StartInfo.UseShellExecute = false;
-                    //process.StartInfo.CreateNoWindow = true;
-                    //Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
                     process.Start();
                     process.WaitForExit();
-                    //Console.WriteLine("Удаление завершено.");
-                    //Console.WriteLine();
                 }
 
             }
             catch (Exception exc)
             {
                 MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString()); // вызвать метод ToString()
+                MessageBox.Show(exc.ToString());
                 MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
@@ -207,25 +163,18 @@ namespace CorebergWindowsFormsInstaller
                 GetAPITOKENandIDC(tag_company);
                 File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi");
                 File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings_" + tag_company + ".REG", true);
-                //Console.WriteLine("Установка \"Teamviewer_Host\".");
                 Process process = new Process();
-                process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer"; //sets the working directory in which the exe file resides.
+                process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
                 process.StartInfo.FileName = "msiexec.exe";
                 process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /qn";
-                //process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /passive";
-                //process.StartInfo.UseShellExecute = false;
-                //process.StartInfo.CreateNoWindow = true;
-                //Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
                 process.Start();
                 process.WaitForExit();
-                //Console.WriteLine("Установка \"Teamviewer\" завершена.");
-                //Console.WriteLine();
                 Assign(tag_company, tag_number);
             }
             catch (Exception exc)
             {
                 MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString()); // вызвать метод ToString()
+                MessageBox.Show(exc.ToString());
                 MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
@@ -236,23 +185,18 @@ namespace CorebergWindowsFormsInstaller
         {
             try
             {
-                //Console.WriteLine("Приязка клиента \"Teamviewer\" к учетной записи admini@coreberg.com.");
                 Process process = new Process();
-                process.StartInfo.WorkingDirectory = string.Format(Directory.GetCurrentDirectory() + "\\TeamViewer"); //sets the working directory in which the exe file resides.
+                process.StartInfo.WorkingDirectory = string.Format(Directory.GetCurrentDirectory() + "\\TeamViewer");
                 process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\Teamviewer\\tv_assignement.exe";
                 process.StartInfo.Arguments = string.Format("-apitoken " + apitoken + " -allowEasyAccess -devicealias " + tag_company + "-" + tag_number + " -wait \"30\" -datafile \"" + Path + "\\AssignmentData.json\" -verbose"); //Pass the number of arguments.
-                //process.StartInfo.UseShellExecute = false;
-                //process.StartInfo.CreateNoWindow = true;
                 process.Start();
-                //process.WaitForExit();
-                //Console.WriteLine("Приязка клиента \"Teamviewer\" к учетной записи admini@coreberg.com завершена.");
-                //Console.WriteLine();
+
             }
 
             catch (Exception exc)
             {
                 MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString()); // вызвать метод ToString()
+                MessageBox.Show(exc.ToString());
                 MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
@@ -271,7 +215,7 @@ namespace CorebergWindowsFormsInstaller
             catch (Exception exc)
             {
                 MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString()); // вызвать метод ToString()
+                MessageBox.Show(exc.ToString());
                 MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
@@ -296,7 +240,7 @@ namespace CorebergWindowsFormsInstaller
             catch (Exception exc)
             {
                 MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString()); // вызвать метод ToString()
+                MessageBox.Show(exc.ToString());
                 MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);

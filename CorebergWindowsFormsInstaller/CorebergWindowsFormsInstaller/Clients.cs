@@ -22,7 +22,6 @@ namespace CorebergWindowsFormsInstaller
                 }
                 return clients;
             }
-            set { }
         }
     }
 }
