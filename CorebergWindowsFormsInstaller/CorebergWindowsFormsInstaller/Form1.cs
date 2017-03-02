@@ -26,12 +26,14 @@ namespace CorebergWindowsFormsInstaller
             if (InstalledSoftware.NameContain("Teamviewer"))
             {               
                 TeamViewer.Uninstall();
+                progressBar1.Value = 15;
                 progressBar1.Value = 25;
                 TeamViewer.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
                 progressBar1.Value = 50;
             }
             else
             {
+                progressBar1.Value = 15;
                 TeamViewer.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
                 progressBar1.Value = 45;
             }
