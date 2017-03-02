@@ -28,6 +28,11 @@ namespace CorebergWindowsFormsInstaller
                 Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 key.SetValue("Desktopinfo", System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\DesktopInfo.exe");
                 key.Close();
+                Process process1 = new Process();
+                process1.StartInfo.WorkingDirectory =
+                process1.StartInfo.FileName = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\DesktopInfo.exe";
+                process1.StartInfo.CreateNoWindow = true;
+                process1.Start();
             }
             catch (Exception exc)
             {

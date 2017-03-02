@@ -165,7 +165,7 @@ namespace CorebergWindowsFormsInstaller
                     process.StartInfo.FileName = string.Format(TeamViewer.Path + "\\uninstall.exe");
                     process.StartInfo.Arguments = " /S";
                     process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = false;
+                    //process.StartInfo.CreateNoWindow = true;
                     //Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
                     process.Start();
                     process.WaitForExit();
@@ -181,7 +181,7 @@ namespace CorebergWindowsFormsInstaller
                     process.StartInfo.Arguments = " /x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\" + TeamViewer.GetMSIPackegeName() + "\" /norestart /qn";
                     //process.StartInfo.Arguments = " /x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\" + TeamViewer.GetMSIPackegeName() + "\" /norestart /passive";
                     process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = false;
+                    //process.StartInfo.CreateNoWindow = true;
                     //Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
                     process.Start();
                     process.WaitForExit();
@@ -214,7 +214,7 @@ namespace CorebergWindowsFormsInstaller
                 process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /qn";
                 //process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /passive";
                 process.StartInfo.UseShellExecute = false;
-                process.StartInfo.CreateNoWindow = false;
+                //process.StartInfo.CreateNoWindow = true;
                 //Console.WriteLine("Запуск: " + process.StartInfo.FileName + process.StartInfo.Arguments);
                 process.Start();
                 process.WaitForExit();
@@ -242,7 +242,7 @@ namespace CorebergWindowsFormsInstaller
                 process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\Teamviewer\\tv_assignement.exe";
                 process.StartInfo.Arguments = string.Format("-apitoken " + apitoken + " -allowEasyAccess -devicealias " + tag_company + "-" + tag_number + " -wait \"30\" -datafile \"" + Path + "\\AssignmentData.json\" -verbose"); //Pass the number of arguments.
                 process.StartInfo.UseShellExecute = false;
-                process.StartInfo.CreateNoWindow = false;
+                //process.StartInfo.CreateNoWindow = true;
                 process.Start();
                 process.WaitForExit();
                 //Console.WriteLine("Приязка клиента \"Teamviewer\" к учетной записи admini@coreberg.com завершена.");
