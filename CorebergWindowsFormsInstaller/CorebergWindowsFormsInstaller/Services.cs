@@ -15,7 +15,7 @@ namespace CorebergWindowsFormsInstaller
         {
             foreach (ServiceController sc in services)
             {
-                Console.WriteLine(sc.DisplayName);
+                //Console.WriteLine(sc.DisplayName);
             }
         }
 
@@ -25,7 +25,7 @@ namespace CorebergWindowsFormsInstaller
             {
                 if (sc.DisplayName.ToLower().Contains(str))
                 {
-                    Console.WriteLine(sc.DisplayName);
+                    //Console.WriteLine(sc.DisplayName);
                 }
             }
         }

@@ -20,19 +20,24 @@ namespace CorebergWindowsFormsInstaller
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            if (InstalledSoftware.NameContain("Teamviewer"))
+            {               
+                TeamViewer.Uninstall();
+                TeamViewer.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
+            }
+            else
+            {
+                TeamViewer.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
+            }
+            DesktopInfo.Install();
+            OCS.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
+
+            MessageBox.Show("установка завершена");
+
             if ((checkBox1.Checked) && (checkBox2.Checked) && (checkBox3.Checked) && (checkBox4.Checked))
             {
-                if (InstalledSoftware.NameContain("Teamviewer"))
-                {
-                    TeamViewer.Uninstall();
-                    TeamViewer.Install(comboBox1.SelectedText, Convert.ToInt32(textBox1.Text));
-                }
-                else
-                {
-                    TeamViewer.Install(comboBox1.SelectedText, Convert.ToInt32(textBox1.Text));
-                }
-                DesktopInfo.Install();
-                OCS.Install(comboBox1.SelectedText, Convert.ToInt32(textBox1.Text));
+                
             }
         }
     }

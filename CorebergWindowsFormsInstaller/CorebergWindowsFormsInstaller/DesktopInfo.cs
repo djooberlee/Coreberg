@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
 {
@@ -18,7 +19,7 @@ namespace CorebergWindowsFormsInstaller
                 {
                     if (process.ProcessName.ToLower() == "desktopinfo")
                     {
-                        //Console.WriteLine(process.ProcessName);
+                        MessageBox.Show(process.ProcessName);
                         process.Kill();
                     }
                 }
@@ -30,11 +31,11 @@ namespace CorebergWindowsFormsInstaller
             }
             catch (Exception exc)
             {
-                Console.WriteLine("Стандартное сообщение таково: ");
-                Console.WriteLine(exc); // вызвать метод ToString()
-                Console.WriteLine("Свойство StackTrace: " + exc.StackTrace);
-                Console.WriteLine("Свойство Message: " + exc.Message);
-                Console.WriteLine("Свойство TargetSite: " + exc.TargetSite);
+                MessageBox.Show("Стандартное сообщение таково: ");
+                MessageBox.Show(exc.ToString()); // вызвать метод ToString()
+                MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
+                MessageBox.Show("Свойство Message: " + exc.Message);
+                MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
             }
         }
     }
