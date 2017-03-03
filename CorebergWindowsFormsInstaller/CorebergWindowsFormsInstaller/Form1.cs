@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,33 +18,44 @@ namespace CorebergWindowsFormsInstaller
         {
             InitializeComponent();
             comboBox1.Items.AddRange(Clients.GetList);
+           
         }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
-            progressBar1.Value = 10;
+            string company = comboBox1.SelectedItem.ToString();
+            int tag = Convert.ToInt32(textBox1.Text);
+            int i = 0;
+            for (; i < 5; i++){ progressBar1.Value = i; }
+
             if (InstalledSoftware.NameContain("Teamviewer"))
             {
-                progressBar1.Value = 15;
+                label1.Text = "Удаляем Teamviewer";
+                for (i = 5; i < 10; i++) { progressBar1.Value = i; }
                 TeamViewer.Uninstall();
-                progressBar1.Value = 25;
-                TeamViewer.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
-                progressBar1.Value = 50;
+                for (i = 10; i < 30; i++) { progressBar1.Value = i; }
+                label1.Text = "Устанавливаем Teamviewer";
+                TeamViewer.Install(company, tag);
             }
             else
             {
-                progressBar1.Value = 15;
-                TeamViewer.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
-                progressBar1.Value = 50;
-            }            
+                for (i = 5; i < 30; i++){ progressBar1.Value = i; }
+                label1.Text = "Устанавливаем Teamviewer";
+                TeamViewer.Install(company, tag);
+            }
+            for (i = 30; i < 60; i++) { progressBar1.Value = i; }
+            label1.Text = "Устанавливаем OCS";
+            OCS.Install(company, tag);
+            for (i = 60; i < 90; i++) { progressBar1.Value = i; }
+
+            label1.Text = "Устанавливаем DesktopInfo";
             
-            OCS.Install(comboBox1.SelectedItem.ToString(), Convert.ToInt32(textBox1.Text));
-            progressBar1.Value = 80;
             DesktopInfo.Install();
-            progressBar1.Value = 90;
-            
-            progressBar1.Value = 100;
-            MessageBox.Show("установка завершена");
+            for (i = 90; i < 101; i++) { progressBar1.Value = i; }
+            label1.Text = "Устанавка завершена";
+
 
         }
     }

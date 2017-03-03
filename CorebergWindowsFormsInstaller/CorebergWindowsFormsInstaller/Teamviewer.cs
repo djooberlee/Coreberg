@@ -190,7 +190,7 @@ namespace CorebergWindowsFormsInstaller
                 process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\Teamviewer\\tv_assignement.exe";
                 process.StartInfo.Arguments = string.Format("-apitoken " + apitoken + " -allowEasyAccess -devicealias " + tag_company + "-" + tag_number + " -wait \"30\" -datafile \"" + Path + "\\AssignmentData.json\" -verbose"); //Pass the number of arguments.
                 process.Start();
-
+                process.WaitForExit();
             }
 
             catch (Exception exc)

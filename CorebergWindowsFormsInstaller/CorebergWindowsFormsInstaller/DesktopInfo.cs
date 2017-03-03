@@ -19,10 +19,14 @@ namespace CorebergWindowsFormsInstaller
                 {
                     if (process.ProcessName.ToLower() == "desktopinfo")
                     {
-                        MessageBox.Show(process.ProcessName);
+                        process.WaitForInputIdle();
+                        process.CloseMainWindow();
+                        
                         process.Kill();
+                        process.WaitForExit();
                     }
                 }
+                
                 Directory.CreateDirectory(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\");
                 File.Copy(Directory.GetCurrentDirectory() + "\\DI\\DesktopInfo.exe", System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\DesktopInfo.exe", true);
                 Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
