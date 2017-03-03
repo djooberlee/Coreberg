@@ -33,27 +33,27 @@ namespace CorebergWindowsFormsInstaller
             if (InstalledSoftware.NameContain("Teamviewer"))
             {
                 label1.Text = "Удаляем Teamviewer";
-                for (i = 5; i < 10; i++) { progressBar1.Value = i; }
+                for (; i < 10; i++) { progressBar1.Value = i; }
                 TeamViewer.Uninstall();
-                for (i = 10; i < 30; i++) { progressBar1.Value = i; }
+                for (; i < 30; i++) { progressBar1.Value = i; }
                 label1.Text = "Устанавливаем Teamviewer";
                 TeamViewer.Install(company, tag);
             }
             else
             {
-                for (i = 5; i < 30; i++){ progressBar1.Value = i; }
+                for (; i < 30; i++){ progressBar1.Value = i; }
                 label1.Text = "Устанавливаем Teamviewer";
                 TeamViewer.Install(company, tag);
             }
-            for (i = 30; i < 60; i++) { progressBar1.Value = i; }
+            for (; i < 60; i++) { progressBar1.Value = i; }
             label1.Text = "Устанавливаем OCS";
             OCS.Install(company, tag);
-            for (i = 60; i < 90; i++) { progressBar1.Value = i; }
+            for (; i < 90; i++) { progressBar1.Value = i; }
 
             label1.Text = "Устанавливаем DesktopInfo";
             
             DesktopInfo.Install();
-            for (i = 90; i < 101; i++) { progressBar1.Value = i; }
+            for (; i < 101; i++) { progressBar1.Value = i; }
             label1.Text = "Устанавка завершена";
 
 
