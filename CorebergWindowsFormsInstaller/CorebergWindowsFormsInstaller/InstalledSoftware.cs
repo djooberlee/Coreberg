@@ -34,9 +34,9 @@ namespace CorebergWindowsFormsInstaller
                 {
                     continue;
                 }
-                //appKey.Close();
+                
             }
-            //key32.Close();
+            
             for (int i = 0; i < skeys64.Length; i++)
             {
                 appKey = key64.OpenSubKey(skeys64[i]);
@@ -133,6 +133,7 @@ namespace CorebergWindowsFormsInstaller
             }
             return name;
         }
+
         static public string GetNameContain2(string contain1, string contain2)
         {
             string name = $"Not found in installed software, with \"{contain1}\" and with \"{contain2}\" in name";

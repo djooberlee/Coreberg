@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
@@ -107,7 +99,17 @@ namespace CorebergWindowsFormsInstaller
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            if (InstalledSoftware.NameContain("OCS Inventory"))
+            {
+                label1.Text = "Удаляем OCS Inventory";
+                progressBar1.Value = 50;
+                OCS.Uninstall();
+                progressBar1.Value = 100;
+                MessageBox.Show("OCS Inventory удален");
+                progressBar1.Value = 0;
+                label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
+            }
+            else MessageBox.Show("OCS Inventory не установлен");
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -123,6 +125,16 @@ namespace CorebergWindowsFormsInstaller
                 label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
             }
             else MessageBox.Show("TeamViewer не установлен");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\"))
+            {
+                DesktopInfo.Uninstall();
+                MessageBox.Show("DesktopInfo удален");
+            }
+            else MessageBox.Show("DesktopInfo не установлен");
         }
     }
 }

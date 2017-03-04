@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
@@ -21,12 +17,12 @@ namespace CorebergWindowsFormsInstaller
                     {
                         process.WaitForInputIdle();
                         process.CloseMainWindow();
-                        
+
                         process.Kill();
                         process.WaitForExit();
                     }
                 }
-                
+
                 Directory.CreateDirectory(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\");
                 File.Copy(Directory.GetCurrentDirectory() + "\\DI\\DesktopInfo.exe", System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\DesktopInfo.exe", true);
                 Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
@@ -46,6 +42,43 @@ namespace CorebergWindowsFormsInstaller
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
             }
+
+
+        }
+
+        public static void Uninstall()
+        {
+            try
+            {
+                foreach (Process process in Process.GetProcesses())
+                {
+                    if (process.ProcessName.ToLower() == "desktopinfo")
+                    {
+                        process.WaitForInputIdle();
+                        process.CloseMainWindow();
+                        process.Kill();
+                        process.WaitForExit();
+                    }
+                }
+                if (Directory.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\"))
+                {
+                    Directory.Delete(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\", true);
+                    Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                    key.DeleteValue("Desktopinfo");
+                    key.Close();
+                }
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Стандартное сообщение таково: ");
+                MessageBox.Show(exc.ToString());
+                MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
+                MessageBox.Show("Свойство Message: " + exc.Message);
+                MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
+            }
+
+
         }
     }
 }
