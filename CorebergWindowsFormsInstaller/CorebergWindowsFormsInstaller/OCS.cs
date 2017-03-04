@@ -24,6 +24,7 @@ namespace CorebergWindowsFormsInstaller
                 process.StartInfo.Arguments = " /S /SERVER=https://inv.coreberg.com/ocsinventory /USER=" + user + " /SSL=0 /PWD=" + pwd + " /DEBUG=1 /TAG=" + tag_company + "-" + tag_number + " /NOW /NOSPLASH /NO_SYSTRAY";
                 process.Start();
                 process.WaitForExit();
+                File.WriteAllText(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Windows) + "\\tag.txt", tag_company+"-"+tag_number, Encoding.Default);
             }
             catch (Exception exc)
             {

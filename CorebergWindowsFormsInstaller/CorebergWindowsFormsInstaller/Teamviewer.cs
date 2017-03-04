@@ -156,28 +156,66 @@ namespace CorebergWindowsFormsInstaller
             }
         }
 
-        public static void Install(string tag_company, int tag_number)
+        public static void Install(string tag_company, int tag_number, bool corp)
         {
-            try
+            if (corp == true)
             {
-                GetAPITOKENandIDC(tag_company);
-                File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi");
-                File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings_" + tag_company + ".REG", true);
-                Process process = new Process();
-                process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
-                process.StartInfo.FileName = "msiexec.exe";
-                process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /qn";
-                process.Start();
-                process.WaitForExit();
-                Assign(tag_company, tag_number);
+                try
+                {
+                    GetAPITOKENandIDC(tag_company);
+                    File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi");
+
+                    foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.reg"))
+                    {
+                        File.Delete(i);
+                    }
+
+                    File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings_" + tag_company + ".REG", true);
+                    Process process = new Process();
+                    process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
+                    process.StartInfo.FileName = "msiexec.exe";
+                    process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /qn";
+                    process.Start();
+                    process.WaitForExit();
+                    Assign(tag_company, tag_number);
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Стандартное сообщение таково: ");
+                    MessageBox.Show(exc.ToString());
+                    MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
+                    MessageBox.Show("Свойство Message: " + exc.Message);
+                    MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
+                }
             }
-            catch (Exception exc)
+            else
             {
-                MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString());
-                MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
-                MessageBox.Show("Свойство Message: " + exc.Message);
-                MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
+                try
+                {
+                    GetAPITOKENandIDC(tag_company);
+                    File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host.msi");
+
+                    foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.reg"))
+                    {
+                        File.Delete(i);
+                    }
+
+                    File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings_" + tag_company + ".REG", true);
+                    Process process = new Process();
+                    process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
+                    process.StartInfo.FileName = "msiexec.exe";
+                    process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /qn";
+                    process.Start();
+                    process.WaitForExit();
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Стандартное сообщение таково: ");
+                    MessageBox.Show(exc.ToString());
+                    MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
+                    MessageBox.Show("Свойство Message: " + exc.Message);
+                    MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
+                }
             }
         }
 
@@ -188,7 +226,7 @@ namespace CorebergWindowsFormsInstaller
                 Process process = new Process();
                 process.StartInfo.WorkingDirectory = string.Format(Directory.GetCurrentDirectory() + "\\TeamViewer");
                 process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\Teamviewer\\tv_assignement.exe";
-                process.StartInfo.Arguments = string.Format("-apitoken " + apitoken + " -allowEasyAccess -devicealias " + tag_company + "-" + tag_number + " -wait \"30\" -datafile \"" + Path + "\\AssignmentData.json\" -verbose"); //Pass the number of arguments.
+                process.StartInfo.Arguments = string.Format("-apitoken " + apitoken + " -allowEasyAccess -devicealias " + tag_company + "-" + tag_number + " -wait \"30\" -datafile \"" + Path + "\\AssignmentData.json\""); //Pass the number of arguments.
                 process.Start();
                 process.WaitForExit();
             }
