@@ -104,5 +104,25 @@ namespace CorebergWindowsFormsInstaller
                 checkBox3.Enabled = true;
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (InstalledSoftware.NameContain("Teamviewer"))
+            {
+                label1.Text = "Удаляем Teamviewer";
+                progressBar1.Value = 50;
+                TeamViewer.Uninstall();
+                progressBar1.Value = 100;
+                MessageBox.Show("TeamViewer удален");
+                progressBar1.Value = 0;
+                label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
+            }
+            else MessageBox.Show("TeamViewer не установлен");
+        }
     }
 }
