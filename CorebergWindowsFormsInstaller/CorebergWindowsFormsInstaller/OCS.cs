@@ -25,6 +25,10 @@ namespace CorebergWindowsFormsInstaller
                 process.Start();
                 process.WaitForExit();
                 File.WriteAllText(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Windows) + "\\tag.txt", tag_company+"-"+tag_number, Encoding.Default);
+                foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\OCSi\\plugins", "*.vbs"))
+                {
+                    File.Copy(i, System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\OCS Inventory Agent\\Plugins\\"+ i.Split('\\')[(i.Split('\\').Length) - 1], true);
+                }
             }
             catch (Exception exc)
             {
