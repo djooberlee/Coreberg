@@ -2,9 +2,10 @@
 
 namespace CorebergWindowsFormsInstaller
 {
-    class Clients
+    internal class Clients
     {
-        static string[] clients;
+        private static string[] clients;
+
         static public string[] GetList
         {
             get

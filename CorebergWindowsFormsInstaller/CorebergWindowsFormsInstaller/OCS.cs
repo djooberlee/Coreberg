@@ -6,10 +6,10 @@ using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
 {
-    class OCS
+    internal class OCS
     {
-        static string user = "coreberg";
-        static string pwd = "CoreAgent098";
+        private static string user = "coreberg";
+        private static string pwd = "CoreAgent098";
 
         public static void Install(string tag_company, int tag_number)
         {
@@ -21,22 +21,23 @@ namespace CorebergWindowsFormsInstaller
                 process.StartInfo.Arguments = " /S /SERVER=https://inv.coreberg.com/ocsinventory /USER=" + user + " /SSL=0 /PWD=" + pwd + " /DEBUG=1 /TAG=" + tag_company + "-" + tag_number + " /NOW /NOSPLASH /NO_SYSTRAY";
                 process.Start();
                 process.WaitForExit();
-                File.WriteAllText(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Windows) + "\\tag.txt", tag_company+"-"+tag_number, Encoding.Default);
+                File.WriteAllText(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Windows) + "\\tag.txt", tag_company + "-" + tag_number, Encoding.Default);
                 foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\OCSi\\plugins", "*.vbs"))
                 {
-                    if(OS.Is64Bit()) File.Copy(i, System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86) + "\\OCS Inventory Agent\\Plugins\\"+ i.Split('\\')[(i.Split('\\').Length) - 1], true);
+                    if (OS.Is64Bit()) File.Copy(i, System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86) + "\\OCS Inventory Agent\\Plugins\\" + i.Split('\\')[(i.Split('\\').Length) - 1], true);
                     else File.Copy(i, System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\OCS Inventory Agent\\Plugins\\" + i.Split('\\')[(i.Split('\\').Length) - 1], true);
                 }
             }
             catch (Exception exc)
             {
                 MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString()); 
+                MessageBox.Show(exc.ToString());
                 MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
             }
         }
+
         public static void Uninstall()
         {
             try

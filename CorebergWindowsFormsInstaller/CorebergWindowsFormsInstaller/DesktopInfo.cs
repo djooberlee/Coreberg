@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
 {
-    class DesktopInfo
+    internal class DesktopInfo
     {
         public static void Install()
         {
@@ -42,8 +42,6 @@ namespace CorebergWindowsFormsInstaller
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
             }
-
-
         }
 
         public static void Uninstall()
@@ -67,7 +65,6 @@ namespace CorebergWindowsFormsInstaller
                     key.DeleteValue("Desktopinfo");
                     key.Close();
                 }
-
             }
             catch (Exception exc)
             {
@@ -77,8 +74,6 @@ namespace CorebergWindowsFormsInstaller
                 MessageBox.Show("Свойство Message: " + exc.Message);
                 MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
             }
-
-
         }
     }
 }

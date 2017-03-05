@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceProcess;
+﻿using System.ServiceProcess;
 
 namespace CorebergWindowsFormsInstaller
 {
-    class Services
+    internal class Services
     {
-        static ServiceController[] services = ServiceController.GetServices();
+        private static ServiceController[] services = ServiceController.GetServices();
 
         public static void DisplayList()
         {
@@ -29,7 +24,6 @@ namespace CorebergWindowsFormsInstaller
                 }
             }
         }
-
 
         static public bool Check(string str)
         {

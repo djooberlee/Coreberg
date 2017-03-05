@@ -2,19 +2,18 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
 {
-    class TeamViewer
+    internal class TeamViewer
     {
-        static int tvid;
-        static string tvistallpath;
-        static string tvversion;
-        static string msi_packege_name;
-        static string apitoken;
-        static string idc;
+        private static int tvid;
+        private static string tvistallpath;
+        private static string tvversion;
+        private static string msi_packege_name;
+        private static string apitoken;
+        private static string idc;
 
         static public int ID
         {
@@ -43,8 +42,7 @@ namespace CorebergWindowsFormsInstaller
             }
         }
 
-
-        static void GetTVID()
+        private static void GetTVID()
         {
             string key_value = "NOT FOUND";
 
@@ -65,7 +63,7 @@ namespace CorebergWindowsFormsInstaller
             tvid = Int32.Parse(key_value);
         }
 
-        static void GetTVpath()
+        private static void GetTVpath()
         {
             try
             {
@@ -97,7 +95,7 @@ namespace CorebergWindowsFormsInstaller
             }
         }
 
-        static void GetTVversion()
+        private static void GetTVversion()
         {
             string key_value = "NOT FOUND";
 
@@ -124,7 +122,6 @@ namespace CorebergWindowsFormsInstaller
             {
                 if (InstalledSoftware.NameContain("teamviewer", "msi"))
                 {
-
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = TeamViewer.Path;
                     process.StartInfo.FileName = string.Format(TeamViewer.Path + "\\uninstall.exe");
@@ -141,7 +138,6 @@ namespace CorebergWindowsFormsInstaller
                     process.Start();
                     process.WaitForExit();
                 }
-
             }
             catch (Exception exc)
             {
@@ -216,7 +212,7 @@ namespace CorebergWindowsFormsInstaller
             }
         }
 
-        static void Assign(string tag_company, int tag_number)
+        private static void Assign(string tag_company, int tag_number)
         {
             try
             {
@@ -229,7 +225,6 @@ namespace CorebergWindowsFormsInstaller
                 process.Start();
                 process.WaitForExit();
             }
-
             catch (Exception exc)
             {
                 MessageBox.Show("Стандартное сообщение таково: ");
@@ -260,7 +255,7 @@ namespace CorebergWindowsFormsInstaller
             return msi_packege_name;
         }
 
-        static void GetAPITOKENandIDC(string tag_company)
+        private static void GetAPITOKENandIDC(string tag_company)
         {
             try
             {

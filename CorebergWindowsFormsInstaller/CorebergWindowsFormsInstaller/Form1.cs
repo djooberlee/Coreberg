@@ -86,19 +86,6 @@ namespace CorebergWindowsFormsInstaller
             else MessageBox.Show("Не верный формат тега");
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!checkBox2.Checked)
-            {
-                checkBox3.Enabled = false;
-                checkBox3.Checked = false;
-            }
-            if (checkBox2.Checked)
-            {
-                checkBox3.Enabled = true;
-            }
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             if (InstalledSoftware.NameContain("OCS Inventory"))
@@ -137,6 +124,19 @@ namespace CorebergWindowsFormsInstaller
                 MessageBox.Show("DesktopInfo удален");
             }
             else MessageBox.Show("DesktopInfo не установлен");
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!checkBox2.Checked)
+            {
+                checkBox3.Enabled = false;
+                checkBox3.Checked = false;
+            }
+            if (checkBox2.Checked)
+            {
+                checkBox3.Enabled = true;
+            }
         }
     }
 }

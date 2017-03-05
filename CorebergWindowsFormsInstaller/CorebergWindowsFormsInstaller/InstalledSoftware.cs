@@ -1,21 +1,18 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CorebergWindowsFormsInstaller
 {
-    class InstalledSoftware
+    internal class InstalledSoftware
     {
-        static RegistryKey key32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x32
-        static RegistryKey key64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x64
-        static string[] skeys32 = key32.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
-        static string[] skeys64 = key64.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
-        static string[] swnames = new string[skeys32.Concat(skeys64).ToArray().Length];
+        private static RegistryKey key32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x32
+        private static RegistryKey key64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x64
+        private static string[] skeys32 = key32.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
+        private static string[] skeys64 = key64.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
+        private static string[] swnames = new string[skeys32.Concat(skeys64).ToArray().Length];
 
-        static void MakeList()
+        private static void MakeList()
         {
             int swnames_count = 0;
             string name;
@@ -34,9 +31,8 @@ namespace CorebergWindowsFormsInstaller
                 {
                     continue;
                 }
-                
             }
-            
+
             for (int i = 0; i < skeys64.Length; i++)
             {
                 appKey = key64.OpenSubKey(skeys64[i]);
