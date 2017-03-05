@@ -6,14 +6,19 @@ namespace CorebergWindowsFormsInstaller
 {
     internal class InstalledSoftware
     {
-        private static RegistryKey key32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x32
-        private static RegistryKey key64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x64
-        private static string[] skeys32 = key32.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
-        private static string[] skeys64 = key64.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
-        private static string[] swnames = new string[skeys32.Concat(skeys64).ToArray().Length];
+        //private static RegistryKey key32; // Сохраняем ветку со списком ПО x32
+        //private static RegistryKey key64; // Сохраняем ветку со списком ПО x64
+        //private static string[] skeys32; // Сохраняем в массив названия каталогов из этой ветки реестра
+        //private static string[] skeys64; // Сохраняем в массив названия каталогов из этой ветки реестра
+        private static string[] swnames;
 
         private static void MakeList()
         {
+            RegistryKey key32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x32
+            RegistryKey key64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x64
+            string[] skeys32 = key32.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
+            string[] skeys64 = key64.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
+            swnames = new string[skeys32.Concat(skeys64).ToArray().Length];
             int swnames_count = 0;
             string name;
             RegistryKey appKey;
@@ -118,6 +123,7 @@ namespace CorebergWindowsFormsInstaller
 
         static public string GetNameContain(string contain, string not_contain)
         {
+            MakeList();
             string name = $"Not found in installed software, with \"{contain}\" and without \"{not_contain}\" in name";
             for (int i = 0; i < swnames.Length; i++)
             {
@@ -132,6 +138,7 @@ namespace CorebergWindowsFormsInstaller
 
         static public string GetNameContain2(string contain1, string contain2)
         {
+            MakeList();
             string name = $"Not found in installed software, with \"{contain1}\" and with \"{contain2}\" in name";
             for (int i = 0; i < swnames.Length; i++)
             {

@@ -40,31 +40,34 @@ namespace CorebergWindowsFormsInstaller
 
         public static void Uninstall()
         {
-            try
+            if (InstalledSoftware.NameContain("OCS Inventory"))
             {
-                Process process = new Process();
-                if (OS.Is64Bit())
+                try
                 {
-                    process.StartInfo.FileName = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86) + "\\OCS Inventory Agent\\uninst.exe";
-                    process.StartInfo.Arguments = " /S";
-                    process.Start();
-                    process.WaitForExit();
+                    Process process = new Process();
+                    if (OS.Is64Bit())
+                    {
+                        process.StartInfo.FileName = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86) + "\\OCS Inventory Agent\\uninst.exe";
+                        process.StartInfo.Arguments = " /S";
+                        process.Start();
+                        process.WaitForExit();
+                    }
+                    else
+                    {
+                        process.StartInfo.FileName = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\OCS Inventory Agent\\uninst.exe";
+                        process.StartInfo.Arguments = " /S";
+                        process.Start();
+                        process.WaitForExit();
+                    }
                 }
-                else
+                catch (Exception exc)
                 {
-                    process.StartInfo.FileName = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\OCS Inventory Agent\\uninst.exe";
-                    process.StartInfo.Arguments = " /S";
-                    process.Start();
-                    process.WaitForExit();
+                    MessageBox.Show("Стандартное сообщение таково: ");
+                    MessageBox.Show(exc.ToString());
+                    MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
+                    MessageBox.Show("Свойство Message: " + exc.Message);
+                    MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
                 }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show("Стандартное сообщение таково: ");
-                MessageBox.Show(exc.ToString());
-                MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
-                MessageBox.Show("Свойство Message: " + exc.Message);
-                MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
             }
         }
     }
