@@ -79,7 +79,10 @@ namespace CorebergWindowsFormsInstaller
                     }
 
                 }
-                else MessageBox.Show("Не выбран клиент");
+                else
+                {
+                    MessageBox.Show("Не выбран клиент");
+                }
             }
             else MessageBox.Show("Не верный формат тега");
         }
