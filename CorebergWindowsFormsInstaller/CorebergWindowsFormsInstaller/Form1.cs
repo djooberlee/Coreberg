@@ -77,7 +77,6 @@ namespace CorebergWindowsFormsInstaller
                         progressBar1.Value = 100;
                         button1.Text = "НАЧАТЬ УСТАНОВКУ";
                     }
-
                 }
                 else
                 {
@@ -132,7 +131,7 @@ namespace CorebergWindowsFormsInstaller
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\"))
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\DI\\"))
             {
                 DesktopInfo.Uninstall();
                 MessageBox.Show("DesktopInfo удален");

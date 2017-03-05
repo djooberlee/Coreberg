@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace CorebergWindowsFormsInstaller
 {
-    class OS
+    internal class OS
     {
         [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
         [return: MarshalAs(UnmanagedType.Bool)]
