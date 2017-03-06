@@ -171,6 +171,7 @@ namespace CorebergWindowsFormsInstaller
                     process.Start();
                     process.WaitForExit();
                     Assign(tag_company, tag_number);
+                    File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host.msi");
                 }
                 catch (Exception exc)
                 {
@@ -200,6 +201,7 @@ namespace CorebergWindowsFormsInstaller
                     process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /qn";
                     process.Start();
                     process.WaitForExit();
+                    File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host.msi");
                 }
                 catch (Exception exc)
                 {

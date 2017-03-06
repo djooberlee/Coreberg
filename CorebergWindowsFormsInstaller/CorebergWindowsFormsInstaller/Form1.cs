@@ -26,24 +26,21 @@ namespace CorebergWindowsFormsInstaller
                     }
                     else
                     {
+                        progressBar1.PerformStep();
                         button1.Text = "Дождитесь завершения установки";
                         string company = comboBox1.SelectedItem.ToString();
                         int tag = Convert.ToInt32(textBox1.Text);
-
-                        progressBar1.PerformStep();
-                        Application.DoEvents();
+                        
                         if (checkBox2.Checked)
                         {
                             if (InstalledSoftware.NameContain("Teamviewer"))
                             {
-                                label1.Text = "20% Удаляем Teamviewer";
+                                label1.Text = "Удаляем Teamviewer";
                                 Application.DoEvents();
                                 TeamViewer.Uninstall();
-                                progressBar1.PerformStep();
-                                
 
-                                label1.Text = "40% Устанавливаем Teamviewer";
-                                progressBar1.PerformStep(); //этот метод не отрабатывает тут, прогрессбар не меняется . Смотрои комментарий ниже                                
+                                progressBar1.PerformStep();
+                                label1.Text = "Устанавливаем Teamviewer";
                                 Application.DoEvents();
 
                                 if (checkBox3.Checked)
@@ -55,7 +52,7 @@ namespace CorebergWindowsFormsInstaller
                             else
                             {
                                 progressBar1.PerformStep();
-                                label1.Text = "40% Устанавливаем Teamviewer";
+                                label1.Text = "Устанавливаем Teamviewer";
                                 Application.DoEvents();
                                 if (checkBox3.Checked)
                                 {
@@ -64,12 +61,12 @@ namespace CorebergWindowsFormsInstaller
                                 else TeamViewer.Install(company, tag, false);
                             }
                         }
-                        progressBar1.PerformStep();   // зато тут он отрабатывает дважды, прогресбар увеличивается до 60%
+                        progressBar1.PerformStep();
                         Application.DoEvents();
 
                         if (checkBox1.Checked)
                         {
-                            label1.Text = "60% Устанавливаем OCS";
+                            label1.Text = "Устанавливаем OCS";
                             Application.DoEvents();
                             OCS.Install(company, tag);
                         }
@@ -78,12 +75,12 @@ namespace CorebergWindowsFormsInstaller
 
                         if (checkBox4.Checked)
                         {
-                            label1.Text = "80% Устанавливаем DesktopInfo";
+                            label1.Text = "Устанавливаем DesktopInfo";
                             Application.DoEvents();
                             DesktopInfo.Install();
                         }
-                        progressBar1.PerformStep();
-                        label1.Text = "100% Устанавка завершена";
+                        progressBar1.Value=100;
+                        label1.Text = "Устанавка завершена";
                         button1.Text = "НАЧАТЬ УСТАНОВКУ";
                         Application.DoEvents();
                     }
@@ -135,8 +132,16 @@ namespace CorebergWindowsFormsInstaller
         {
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\DI\\"))
             {
+                label1.Text = "Удаляем Desktopinfo";
+                progressBar1.Value = 50;
+                Application.DoEvents();
                 DesktopInfo.Uninstall();
+                progressBar1.Value = 100;
+                Application.DoEvents();
                 MessageBox.Show("DesktopInfo удален");
+                progressBar1.Value = 0;
+                label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
+                Application.DoEvents();
             }
             else MessageBox.Show("DesktopInfo не установлен");
         }

@@ -6,10 +6,6 @@ namespace CorebergWindowsFormsInstaller
 {
     internal class InstalledSoftware
     {
-        //private static RegistryKey key32; // Сохраняем ветку со списком ПО x32
-        //private static RegistryKey key64; // Сохраняем ветку со списком ПО x64
-        //private static string[] skeys32; // Сохраняем в массив названия каталогов из этой ветки реестра
-        //private static string[] skeys64; // Сохраняем в массив названия каталогов из этой ветки реестра
         private static string[] swnames;
 
         private static void MakeList()
