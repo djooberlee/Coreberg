@@ -15,9 +15,8 @@ namespace CorebergWindowsFormsInstaller
             label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
         }
 
-        
 
-        private void button1_Click(object sender, EventArgs e)
+        private  void button1_Click(object sender, EventArgs e)
         {
             
             if (Convert.ToInt32(textBox1.Text) > 100001 && Convert.ToInt32(textBox1.Text) < 999999)
@@ -30,23 +29,27 @@ namespace CorebergWindowsFormsInstaller
                     }
                     else
                     {
-                       
-                        progressBar1.PerformStep();
-                        button1.Text = "Дождитесь завершения установки";
+                        progressBar1.Value=20;
+                        MessageBox.Show(progressBar1.Value.ToString());
+
+
+
+                        button1.Text = "Дождитесь завершения установки";                                           
+
                         string company = comboBox1.SelectedItem.ToString();
                         int tag = Convert.ToInt32(textBox1.Text);
-                        
+                        Application.DoEvents();
                         if (checkBox2.Checked)
                         {
                             if (InstalledSoftware.NameContain("Teamviewer"))
                             {
                                 label1.Text = "Удаляем Teamviewer";
-                                Application.DoEvents();
                                 TeamViewer.Uninstall();
 
-                                progressBar1.PerformStep();
+                                progressBar1.Value = 40;
+
                                 label1.Text = "Устанавливаем Teamviewer";
-                                Application.DoEvents();
+
 
                                 if (checkBox3.Checked)
                                 {
@@ -56,9 +59,10 @@ namespace CorebergWindowsFormsInstaller
                             }
                             else
                             {
-                                progressBar1.PerformStep();
+                                progressBar1.Value = 40;
+                                
                                 label1.Text = "Устанавливаем Teamviewer";
-                                Application.DoEvents();
+
                                 if (checkBox3.Checked)
                                 {
                                     TeamViewer.Install(company, tag, true);
@@ -66,29 +70,32 @@ namespace CorebergWindowsFormsInstaller
                                 else TeamViewer.Install(company, tag, false);
                             }
                         }
-                        progressBar1.PerformStep();
-                        Application.DoEvents();
+                        progressBar1.Value = 60;
+                       
+
 
                         if (checkBox1.Checked)
                         {
                             label1.Text = "Устанавливаем OCS";
                             
-                            Application.DoEvents();
+
                             OCS.Install(company, tag);
                         }
-                        progressBar1.PerformStep();
-                        Application.DoEvents();
+                        progressBar1.Value = 80; 
+                        
+
 
                         if (checkBox4.Checked)
                         {
                             label1.Text = "Устанавливаем DesktopInfo";
-                            Application.DoEvents();
+
                             DesktopInfo.Install();
                         }
                         progressBar1.Value=100;
+                        
                         label1.Text = "Устанавка завершена";
                         button1.Text = "НАЧАТЬ УСТАНОВКУ";
-                        Application.DoEvents();
+
                     }
                 }
                 else
