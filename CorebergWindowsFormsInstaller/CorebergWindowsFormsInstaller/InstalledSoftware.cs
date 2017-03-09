@@ -48,9 +48,7 @@ namespace CorebergWindowsFormsInstaller
                 {
                     continue;
                 }
-                //appKey.Close();
             }
-            //key64.Close();
             swnames = swnames.Where(n => !string.IsNullOrEmpty(n)).ToArray();
             Array.Sort(swnames);
         }

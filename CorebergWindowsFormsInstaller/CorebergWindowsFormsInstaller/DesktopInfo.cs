@@ -29,7 +29,6 @@ namespace CorebergWindowsFormsInstaller
                 key.SetValue("Desktopinfo", System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\DesktopInfo.exe");
                 key.Close();
                 Process process1 = new Process();
-                process1.StartInfo.WorkingDirectory =
                 process1.StartInfo.FileName = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\DI\\DesktopInfo.exe";
                 process1.StartInfo.CreateNoWindow = true;
                 process1.Start();
