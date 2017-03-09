@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
@@ -14,8 +15,11 @@ namespace CorebergWindowsFormsInstaller
             label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
         }
 
+        
+
         private void button1_Click(object sender, EventArgs e)
         {
+            
             if (Convert.ToInt32(textBox1.Text) > 100001 && Convert.ToInt32(textBox1.Text) < 999999)
             {
                 if (comboBox1.SelectedIndex != -1)
@@ -26,6 +30,7 @@ namespace CorebergWindowsFormsInstaller
                     }
                     else
                     {
+                       
                         progressBar1.PerformStep();
                         button1.Text = "Дождитесь завершения установки";
                         string company = comboBox1.SelectedItem.ToString();
@@ -67,6 +72,7 @@ namespace CorebergWindowsFormsInstaller
                         if (checkBox1.Checked)
                         {
                             label1.Text = "Устанавливаем OCS";
+                            
                             Application.DoEvents();
                             OCS.Install(company, tag);
                         }

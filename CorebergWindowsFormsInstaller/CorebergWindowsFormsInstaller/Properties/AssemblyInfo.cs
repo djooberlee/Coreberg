@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // Управление общими сведениями о сборке осуществляется с помощью
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("CorebergWindowsFormsInstaller")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Coreberg Inventory Tool")]
+[assembly: AssemblyDescription("Installer for OCS Inventory, Teamviewer, DesktopInfo")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CorebergWindowsFormsInstaller")]
+[assembly: AssemblyCompany("Coreberg IT Managament")]
+[assembly: AssemblyProduct("Coreberg  Installer")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
