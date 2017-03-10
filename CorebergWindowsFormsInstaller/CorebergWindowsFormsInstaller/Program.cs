@@ -21,7 +21,6 @@ namespace CorebergWindowsFormsInstaller
                 return;
             }
             Application.Run(new Form1());
-            
         }
     }
 }

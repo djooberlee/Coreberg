@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
@@ -15,10 +14,8 @@ namespace CorebergWindowsFormsInstaller
             label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
         }
 
-
-        private  void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            
             if (Convert.ToInt32(textBox1.Text) > 100001 && Convert.ToInt32(textBox1.Text) < 999999)
             {
                 if (comboBox1.SelectedIndex != -1)
@@ -29,12 +26,9 @@ namespace CorebergWindowsFormsInstaller
                     }
                     else
                     {
-                        progressBar1.Value=20;
-                        MessageBox.Show(progressBar1.Value.ToString());
+                        progressBar1.Value = 20;
 
-
-
-                        button1.Text = "Дождитесь завершения установки";                                           
+                        button1.Text = "Дождитесь завершения установки";
 
                         string company = comboBox1.SelectedItem.ToString();
                         int tag = Convert.ToInt32(textBox1.Text);
@@ -50,7 +44,6 @@ namespace CorebergWindowsFormsInstaller
 
                                 label1.Text = "Устанавливаем Teamviewer";
 
-
                                 if (checkBox3.Checked)
                                 {
                                     TeamViewer.Install(company, tag, true);
@@ -60,7 +53,7 @@ namespace CorebergWindowsFormsInstaller
                             else
                             {
                                 progressBar1.Value = 40;
-                                
+
                                 label1.Text = "Устанавливаем Teamviewer";
 
                                 if (checkBox3.Checked)
@@ -71,19 +64,14 @@ namespace CorebergWindowsFormsInstaller
                             }
                         }
                         progressBar1.Value = 60;
-                       
-
 
                         if (checkBox1.Checked)
                         {
                             label1.Text = "Устанавливаем OCS";
-                            
 
                             OCS.Install(company, tag);
                         }
-                        progressBar1.Value = 80; 
-                        
-
+                        progressBar1.Value = 80;
 
                         if (checkBox4.Checked)
                         {
@@ -91,11 +79,10 @@ namespace CorebergWindowsFormsInstaller
 
                             DesktopInfo.Install();
                         }
-                        progressBar1.Value=100;
-                        
+                        progressBar1.Value = 100;
+
                         label1.Text = "Устанавка завершена";
                         button1.Text = "НАЧАТЬ УСТАНОВКУ";
-
                     }
                 }
                 else
