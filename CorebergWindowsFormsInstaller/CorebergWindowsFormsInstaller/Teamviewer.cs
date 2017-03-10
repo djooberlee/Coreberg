@@ -163,7 +163,7 @@ namespace CorebergWindowsFormsInstaller
                         File.Delete(i);
                     }
 
-                    File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings_" + tag_company + ".REG", true);
+                    File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings.REG", true);
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
                     process.StartInfo.FileName = "msiexec.exe";
@@ -194,7 +194,7 @@ namespace CorebergWindowsFormsInstaller
                         File.Delete(i);
                     }
 
-                    File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings_" + tag_company + ".REG", true);
+                    File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings.REG", true);
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
                     process.StartInfo.FileName = "msiexec.exe";
