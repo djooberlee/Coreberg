@@ -116,7 +116,7 @@ namespace CorebergWindowsFormsInstaller
             tvversion = key_value;
         }
 
-        static public void Uninstall()
+        static public void Uninstall(int version)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace CorebergWindowsFormsInstaller
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
                     process.StartInfo.FileName = "msiexec.exe";
-                    process.StartInfo.Arguments = " /x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\" + TeamViewer.GetMSIPackegeName() + "\" /norestart /qn";
+                    process.StartInfo.Arguments = " /x \"" + Directory.GetCurrentDirectory() + "\\TeamViewer\\" + version + "\\TeamViewer_Host.msi\" /norestart /qn";
                     process.Start();
                     process.WaitForExit();
                 }
@@ -149,20 +149,22 @@ namespace CorebergWindowsFormsInstaller
             }
         }
 
-        public static void Install(string tag_company, int tag_number, bool corp)
+        public static void Install(string tag_company, int tag_number, int version, bool corp)
         {
             if (corp == true)
             {
                 try
                 {
                     GetAPITOKENandIDC(tag_company);
-                    File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi");
-
+                    foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.msi"))
+                    {
+                        File.Delete(i);
+                    }
                     foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.reg"))
                     {
                         File.Delete(i);
                     }
-
+                    File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + version + "\\TeamViewer_Host.msi", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host-idc" + idc + ".msi");
                     File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings.REG", true);
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
@@ -171,7 +173,14 @@ namespace CorebergWindowsFormsInstaller
                     process.Start();
                     process.WaitForExit();
                     Assign(tag_company, tag_number);
-                    File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host.msi");
+                    foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.msi"))
+                    {
+                        File.Delete(i);
+                    }
+                    foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.reg"))
+                    {
+                        File.Delete(i);
+                    }
                 }
                 catch (Exception exc)
                 {
@@ -187,13 +196,15 @@ namespace CorebergWindowsFormsInstaller
                 try
                 {
                     GetAPITOKENandIDC(tag_company);
-                    File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host.msi");
-
+                    foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.msi"))
+                    {
+                        File.Delete(i);
+                    }
                     foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.reg"))
                     {
                         File.Delete(i);
                     }
-
+                    File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + version + "\\TeamViewer_Host.msi", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host.msi");
                     File.Copy(Directory.GetCurrentDirectory() + "\\Teamviewer\\REG\\TeamViewer_Settings_" + tag_company + ".REG", Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Settings.REG", true);
                     Process process = new Process();
                     process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\TeamViewer";
@@ -201,7 +212,14 @@ namespace CorebergWindowsFormsInstaller
                     process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /qn";
                     process.Start();
                     process.WaitForExit();
-                    File.Move(Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName(), Directory.GetCurrentDirectory() + "\\TeamViewer\\TeamViewer_Host.msi");
+                    foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.msi"))
+                    {
+                        File.Delete(i);
+                    }
+                    foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.reg"))
+                    {
+                        File.Delete(i);
+                    }
                 }
                 catch (Exception exc)
                 {

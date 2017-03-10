@@ -17,7 +17,15 @@ namespace CorebergWindowsFormsInstaller
             {
                 Process process = new Process();
                 process.StartInfo.WorkingDirectory = Directory.GetCurrentDirectory() + "\\OCSi"; //sets the working directory in which the exe file resides.
-                process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\OCSi\\OCS-NG-Windows-Agent-Setup.exe";
+                if ((OS.GetOSVersion().Value.Split('.')[0] == "5") && ((OS.GetOSVersion().Value.Split('.')[1] == "2") || (OS.GetOSVersion().Value.Split('.')[1] == "1")))
+
+                {
+                    process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\OCSi\\v2.1.1.1\\OCS-NG-Windows-Agent-Setup.exe";
+                }
+                else
+                {
+                    process.StartInfo.FileName = Directory.GetCurrentDirectory() + "\\OCSi\\v2.3.0.0\\OCS-NG-Windows-Agent-Setup.exe";
+                }
                 process.StartInfo.Arguments = " /S /SERVER=https://inv.coreberg.com/ocsinventory /USER=" + user + " /SSL=0 /PWD=" + pwd + " /DEBUG=1 /TAG=" + tag_company + "-" + tag_number + " /NOW /NOSPLASH /NO_SYSTRAY";
                 process.Start();
                 process.WaitForExit();

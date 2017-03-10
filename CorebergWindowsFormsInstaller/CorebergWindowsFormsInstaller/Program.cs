@@ -15,7 +15,8 @@ namespace CorebergWindowsFormsInstaller
             Application.SetCompatibleTextRenderingDefault(false);
             if (args.Length > 0)
             {
-                if (args[0] == "--tv-uninstall") TeamViewer.Uninstall();
+                if (args[0] == "--tv-uninstall-11") TeamViewer.Uninstall(11);
+                if (args[0] == "--tv-uninstall-12") TeamViewer.Uninstall(12);
                 if (args[0] == "--ocs-uninstall") OCS.Uninstall();
                 if (args[0] == "--di-uninstall") DesktopInfo.Uninstall();
                 return;

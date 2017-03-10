@@ -11,6 +11,7 @@ namespace CorebergWindowsFormsInstaller
             InitializeComponent();
             comboBox1.Items.AddRange(Clients.GetList);
             comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
             label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
         }
 
@@ -38,7 +39,7 @@ namespace CorebergWindowsFormsInstaller
                             if (InstalledSoftware.NameContain("Teamviewer"))
                             {
                                 label1.Text = "Удаляем Teamviewer";
-                                TeamViewer.Uninstall();
+                                TeamViewer.Uninstall(Convert.ToInt32(comboBox2.SelectedItem));
 
                                 progressBar1.Value = 40;
 
@@ -46,9 +47,9 @@ namespace CorebergWindowsFormsInstaller
 
                                 if (checkBox3.Checked)
                                 {
-                                    TeamViewer.Install(company, tag, true);
+                                    TeamViewer.Install(company, tag, Convert.ToInt32(comboBox2.SelectedItem), true);
                                 }
-                                else TeamViewer.Install(company, tag, false);
+                                else TeamViewer.Install(company, tag, Convert.ToInt32(comboBox2.SelectedItem), false);
                             }
                             else
                             {
@@ -58,9 +59,9 @@ namespace CorebergWindowsFormsInstaller
 
                                 if (checkBox3.Checked)
                                 {
-                                    TeamViewer.Install(company, tag, true);
+                                    TeamViewer.Install(company, tag, Convert.ToInt32(comboBox2.SelectedItem), true);
                                 }
-                                else TeamViewer.Install(company, tag, false);
+                                else TeamViewer.Install(company, tag, Convert.ToInt32(comboBox2.SelectedItem), false);
                             }
                         }
                         progressBar1.Value = 60;
@@ -117,7 +118,7 @@ namespace CorebergWindowsFormsInstaller
                 label1.Text = "Удаляем Teamviewer";
                 progressBar1.Value = 50;
                 Application.DoEvents();
-                TeamViewer.Uninstall();
+                TeamViewer.Uninstall(Convert.ToInt32(comboBox2.SelectedItem));
                 progressBar1.Value = 100;
                 Application.DoEvents();
                 MessageBox.Show("TeamViewer удален");
@@ -150,11 +151,13 @@ namespace CorebergWindowsFormsInstaller
         {
             if (!checkBox2.Checked)
             {
+                comboBox2.Enabled = false;
                 checkBox3.Enabled = false;
                 checkBox3.Checked = false;
             }
             if (checkBox2.Checked)
             {
+                comboBox2.Enabled = true;
                 checkBox3.Enabled = true;
             }
         }
