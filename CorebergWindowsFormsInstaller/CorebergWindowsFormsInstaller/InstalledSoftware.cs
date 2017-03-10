@@ -13,49 +13,84 @@ namespace CorebergWindowsFormsInstaller
         {
             try
             {
-                RegistryKey key32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x32
-                RegistryKey key64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x64
-                string[] skeys32 = key32.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
-                string[] skeys64 = key64.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
-                swnames = new string[skeys32.Concat(skeys64).ToArray().Length];
-                int swnames_count = 0;
-                string name;
-                RegistryKey appKey;
-                for (int i = 0; i < skeys32.Length; i++)
+                if (OS.Is64Bit())
                 {
-                    appKey = key32.OpenSubKey(skeys32[i]);
+                    RegistryKey key32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x32
+                    RegistryKey key64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x64
+                    string[] skeys32 = key32.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
+                    string[] skeys64 = key64.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
+                    swnames = new string[skeys32.Concat(skeys64).ToArray().Length];
+                    int swnames_count = 0;
+                    string name;
+                    RegistryKey appKey;
+                    for (int i = 0; i < skeys32.Length; i++)
+                    {
+                        appKey = key32.OpenSubKey(skeys32[i]);
 
-                    try
-                    {
-                        name = appKey.GetValue("DisplayName").ToString();
-                        swnames[swnames_count] = name;
-                        swnames_count++;
+                        try
+                        {
+                            name = appKey.GetValue("DisplayName").ToString();
+                            swnames[swnames_count] = name;
+                            swnames_count++;
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
                     }
-                    catch (Exception)
+
+                    for (int i = 0; i < skeys64.Length; i++)
                     {
-                        continue;
+                        appKey = key64.OpenSubKey(skeys64[i]);
+                        try
+                        {
+                            name = appKey.GetValue("DisplayName").ToString();
+
+                            swnames[swnames_count] = name;
+                            swnames_count++;
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
                     }
+                    swnames = swnames.Where(n => !string.IsNullOrEmpty(n)).ToArray();
+                    Array.Sort(swnames);
                 }
-
-                for (int i = 0; i < skeys64.Length; i++)
+                else
                 {
-                    appKey = key64.OpenSubKey(skeys64[i]);
-                    try
+                    RegistryKey key32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"); // Сохраняем ветку со списком ПО x32
+                    string[] skeys32 = key32.GetSubKeyNames(); // Сохраняем в массив названия каталогов из этой ветки реестра
+                    swnames = new string[skeys32.Length];
+                    int swnames_count = 0;
+                    string name;
+                    RegistryKey appKey;
+                    for (int i = 0; i < skeys32.Length; i++)
                     {
-                        name = appKey.GetValue("DisplayName").ToString();
-
-                        swnames[swnames_count] = name;
-                        swnames_count++;
+                        appKey = key32.OpenSubKey(skeys32[i]);
+                        try
+                        {
+                            name = appKey.GetValue("DisplayName").ToString();
+                            swnames[swnames_count] = name;
+                            swnames_count++;
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
                     }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
+                    swnames = swnames.Where(n => !string.IsNullOrEmpty(n)).ToArray();
+                    Array.Sort(swnames);
                 }
-                swnames = swnames.Where(n => !string.IsNullOrEmpty(n)).ToArray();
-                Array.Sort(swnames);
             }
-            catch (Exception) { }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Стандартное сообщение таково: ");
+                MessageBox.Show(exc.ToString());
+                MessageBox.Show("Свойство StackTrace: " + exc.StackTrace);
+                MessageBox.Show("Свойство Message: " + exc.Message);
+                MessageBox.Show("Свойство TargetSite: " + exc.TargetSite);
+            }
         }
 
         static public void Show()
