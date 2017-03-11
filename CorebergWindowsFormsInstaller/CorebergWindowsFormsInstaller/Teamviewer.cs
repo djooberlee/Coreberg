@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
@@ -149,7 +150,10 @@ namespace CorebergWindowsFormsInstaller
                     }
                     process.StartInfo.Arguments = " /S";
                     process.Start();
-                    process.WaitForExit();
+                    bool done = false;
+                    process.EnableRaisingEvents = true;
+                    process.Exited += new EventHandler((object sender, EventArgs e) => { done = true; });
+                    while (done != true) { Application.DoEvents(); Thread.Sleep(1); }
                 }
                 if (InstalledSoftware.NameContain2("teamviewer", "msi"))
                 {
@@ -193,7 +197,11 @@ namespace CorebergWindowsFormsInstaller
                     process.StartInfo.FileName = "msiexec.exe";
                     process.StartInfo.Arguments = " /package \"" + Directory.GetCurrentDirectory() + "\\Teamviewer\\" + GetMSIPackegeName() + "\" /norestart /qn";
                     process.Start();
-                    process.WaitForExit();
+                    bool done = false;
+                    process.EnableRaisingEvents = true;
+                    process.Exited += new EventHandler((object sender, EventArgs e) => { done = true; });
+                    while (done != true) { Application.DoEvents(); Thread.Sleep(1); }
+
                     Assign(tag_company, tag_number);
                     foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Teamviewer", "*.msi"))
                     {
@@ -265,7 +273,10 @@ namespace CorebergWindowsFormsInstaller
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
                 process.Start();
-                process.WaitForExit();
+                bool done = false;
+                process.EnableRaisingEvents = true;
+                process.Exited += new EventHandler((object sender, EventArgs e) => { done = true; });
+                while (done != true) { Application.DoEvents(); Thread.Sleep(1); }
             }
             catch (Exception exc)
             {

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
@@ -28,7 +29,11 @@ namespace CorebergWindowsFormsInstaller
                 }
                 process.StartInfo.Arguments = " /S /SERVER=https://inv.coreberg.com/ocsinventory /USER=" + user + " /SSL=0 /PWD=" + pwd + " /DEBUG=1 /TAG=" + tag_company + "-" + tag_number + " /NOW /NOSPLASH /NO_SYSTRAY";
                 process.Start();
-                process.WaitForExit();
+                bool done = false;
+                process.EnableRaisingEvents = true;
+                process.Exited += new EventHandler((object sender, EventArgs e) => { done = true; });
+                while (done != true) { Application.DoEvents(); Thread.Sleep(1); }
+
                 File.WriteAllText(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Windows) + "\\tag.txt", tag_company + "-" + tag_number, Encoding.Default);
                 foreach (string i in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\OCSi\\plugins", "*.vbs"))
                 {
@@ -58,14 +63,20 @@ namespace CorebergWindowsFormsInstaller
                         process.StartInfo.FileName = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFilesX86) + "\\OCS Inventory Agent\\uninst.exe";
                         process.StartInfo.Arguments = " /S";
                         process.Start();
-                        process.WaitForExit();
+                        bool done = false;
+                        process.EnableRaisingEvents = true;
+                        process.Exited += new EventHandler((object sender, EventArgs e) => { done = true; });
+                        while (done != true) { Application.DoEvents(); Thread.Sleep(1); }
                     }
                     else
                     {
                         process.StartInfo.FileName = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ProgramFiles) + "\\OCS Inventory Agent\\uninst.exe";
                         process.StartInfo.Arguments = " /S";
                         process.Start();
-                        process.WaitForExit();
+                        bool done = false;
+                        process.EnableRaisingEvents = true;
+                        process.Exited += new EventHandler((object sender, EventArgs e) => { done = true; });
+                        while (done != true) { Application.DoEvents(); Thread.Sleep(1); }
                     }
                 }
                 catch (Exception exc)

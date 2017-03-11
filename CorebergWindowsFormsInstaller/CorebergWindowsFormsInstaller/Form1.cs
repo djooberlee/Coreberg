@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace CorebergWindowsFormsInstaller
@@ -13,6 +14,15 @@ namespace CorebergWindowsFormsInstaller
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool AllocConsole();
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            AllocConsole();
         }
 
         private void button1_Click(object sender, EventArgs e)
