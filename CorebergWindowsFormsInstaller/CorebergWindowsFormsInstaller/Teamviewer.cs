@@ -50,7 +50,7 @@ namespace CorebergWindowsFormsInstaller
             {
                 Microsoft.Win32.RegistryKey registryKey64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\TeamViewer");
                 RegistryKey registryKey32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\TeamViewer");
-                if (!Environment.Is64BitOperatingSystem)
+                if (!OS.Is64Bit())
                 {
                     key_value = Registry.GetValue(registryKey32.Name, "ClientID", "NOT FOUND").ToString();
                 }
@@ -73,7 +73,7 @@ namespace CorebergWindowsFormsInstaller
                 {
                     Microsoft.Win32.RegistryKey registryKey64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\TeamViewer");
                     RegistryKey registryKey32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\TeamViewer");
-                    if (!Environment.Is64BitOperatingSystem)
+                    if (!OS.Is64Bit())
                     {
                         key_value = Registry.GetValue(registryKey32.Name, "InstallationDirectory", "NOT FOUND").ToString();
                     }
@@ -103,7 +103,7 @@ namespace CorebergWindowsFormsInstaller
             {
                 Microsoft.Win32.RegistryKey registryKey64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\TeamViewer");
                 RegistryKey registryKey32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\TeamViewer");
-                if (!Environment.Is64BitOperatingSystem)
+                if (!OS.Is64Bit())
                 {
                     key_value = Registry.GetValue(registryKey32.Name, "Version", "NOT FOUND").ToString();
                 }
@@ -123,8 +123,30 @@ namespace CorebergWindowsFormsInstaller
                 if (InstalledSoftware.NameContain("teamviewer", "msi"))
                 {
                     Process process = new Process();
-                    process.StartInfo.WorkingDirectory = TeamViewer.Path;
-                    process.StartInfo.FileName = string.Format(TeamViewer.Path + "\\uninstall.exe");
+                    if (version == 9)
+                    {
+                        try
+                        {
+                            Microsoft.Win32.RegistryKey registryKey64 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\TeamViewer\Version9");
+                            RegistryKey registryKey32 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\TeamViewer\Version9");
+                            if (!OS.Is64Bit())
+                            {
+                                process.StartInfo.WorkingDirectory = Registry.GetValue(registryKey32.Name, "InstallationDirectory", "NOT FOUND").ToString();
+                                process.StartInfo.FileName = string.Format(Registry.GetValue(registryKey32.Name, "InstallationDirectory", "NOT FOUND").ToString() + "\\uninstall.exe");
+                            }
+                            else
+                            {
+                                process.StartInfo.WorkingDirectory = Registry.GetValue(registryKey64.Name, "InstallationDirectory", "NOT FOUND").ToString();
+                                process.StartInfo.FileName = string.Format(Registry.GetValue(registryKey32.Name, "InstallationDirectory", "NOT FOUND").ToString() + "\\uninstall.exe");
+                            }
+                        }
+                        catch (System.Exception) { tvistallpath = "notinstalled"; }
+                    }
+                    else
+                    {
+                        process.StartInfo.WorkingDirectory = TeamViewer.Path;
+                        process.StartInfo.FileName = string.Format(TeamViewer.Path + "\\uninstall.exe");
+                    }
                     process.StartInfo.Arguments = " /S";
                     process.Start();
                     process.WaitForExit();
