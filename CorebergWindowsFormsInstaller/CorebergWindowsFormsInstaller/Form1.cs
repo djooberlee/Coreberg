@@ -55,19 +55,19 @@ namespace CorebergWindowsFormsInstaller
 
                         string company = comboBox1.SelectedItem.ToString();
                         int tag = Convert.ToInt32(textBox1.Text);
-                        Application.DoEvents();
+
                         if (checkBox2.Checked)
                         {
                             if (InstalledSoftware.NameContain("Teamviewer"))
                             {
                                 label1.Text = "Удаляем Teamviewer";
-                                Application.DoEvents();
+
                                 TeamViewer.Uninstall(Convert.ToInt32(comboBox2.SelectedItem));
 
                                 progressBar1.Value = 40;
 
                                 label1.Text = "Устанавливаем Teamviewer";
-                                Application.DoEvents();
+
                                 if (checkBox3.Checked)
                                 {
                                     TeamViewer.Install(company, tag, Convert.ToInt32(comboBox2.SelectedItem), true);
@@ -79,7 +79,7 @@ namespace CorebergWindowsFormsInstaller
                                 progressBar1.Value = 40;
 
                                 label1.Text = "Устанавливаем Teamviewer";
-                                Application.DoEvents();
+
                                 if (checkBox3.Checked)
                                 {
                                     TeamViewer.Install(company, tag, Convert.ToInt32(comboBox2.SelectedItem), true);
@@ -92,7 +92,7 @@ namespace CorebergWindowsFormsInstaller
                         if (checkBox1.Checked)
                         {
                             label1.Text = "Устанавливаем OCS";
-                            Application.DoEvents();
+
                             OCS.Install(company, tag);
                         }
                         progressBar1.Value = 80;
@@ -100,7 +100,7 @@ namespace CorebergWindowsFormsInstaller
                         if (checkBox4.Checked)
                         {
                             label1.Text = "Устанавливаем DesktopInfo";
-                            Application.DoEvents();
+
                             DesktopInfo.Install();
                         }
                         progressBar1.Value = 100;
@@ -137,10 +137,10 @@ namespace CorebergWindowsFormsInstaller
             {
                 label1.Text = "Удаляем OCS Inventory";
                 progressBar1.Value = 50;
-                Application.DoEvents();
+
                 OCS.Uninstall();
                 progressBar1.Value = 100;
-                Application.DoEvents();
+
                 MessageBox.Show("OCS Inventory удален");
                 progressBar1.Value = 0;
                 label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
@@ -154,14 +154,13 @@ namespace CorebergWindowsFormsInstaller
             {
                 label1.Text = "Удаляем Teamviewer";
                 progressBar1.Value = 50;
-                Application.DoEvents();
+
                 TeamViewer.Uninstall(Convert.ToInt32(comboBox2.SelectedItem));
                 progressBar1.Value = 100;
-                Application.DoEvents();
+
                 MessageBox.Show("TeamViewer удален");
                 progressBar1.Value = 0;
                 label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
-                Application.DoEvents();
             }
             else MessageBox.Show("TeamViewer не установлен");
         }
@@ -172,14 +171,13 @@ namespace CorebergWindowsFormsInstaller
             {
                 label1.Text = "Удаляем Desktopinfo";
                 progressBar1.Value = 50;
-                Application.DoEvents();
+
                 DesktopInfo.Uninstall();
                 progressBar1.Value = 100;
-                Application.DoEvents();
+
                 MessageBox.Show("DesktopInfo удален");
                 progressBar1.Value = 0;
                 label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
-                Application.DoEvents();
             }
             else MessageBox.Show("DesktopInfo не установлен");
         }
