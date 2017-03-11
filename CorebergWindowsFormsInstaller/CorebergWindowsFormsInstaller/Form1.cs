@@ -37,6 +37,18 @@ namespace CorebergWindowsFormsInstaller
                     }
                     else
                     {
+                        comboBox1.Enabled = false;
+                        comboBox2.Enabled = false;
+                        checkBox1.Enabled = false;
+                        checkBox2.Enabled = false;
+                        checkBox3.Enabled = false;
+                        checkBox4.Enabled = false;
+                        textBox1.Enabled = false;
+                        button1.Enabled = false;
+                        button2.Enabled = false;
+                        button3.Enabled = false;
+                        button4.Enabled = false;
+
                         progressBar1.Value = 20;
 
                         button1.Text = "Дождитесь завершения установки";
@@ -95,6 +107,20 @@ namespace CorebergWindowsFormsInstaller
 
                         label1.Text = "Устанавка завершена";
                         button1.Text = "НАЧАТЬ УСТАНОВКУ";
+                        comboBox1.Enabled = true;
+                        checkBox1.Enabled = true;
+                        checkBox2.Enabled = true;
+                        if (checkBox2.Checked)
+                        {
+                            comboBox2.Enabled = true;
+                            checkBox3.Enabled = true;
+                        }
+                        checkBox4.Enabled = true;
+                        textBox1.Enabled = true;
+                        button1.Enabled = true;
+                        button2.Enabled = true;
+                        button3.Enabled = true;
+                        button4.Enabled = true;
                     }
                 }
                 else
