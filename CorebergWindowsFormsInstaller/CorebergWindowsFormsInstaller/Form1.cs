@@ -3,10 +3,13 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+delegate void SelectedToInstall(object source, EventArgs e);
+
 namespace CorebergWindowsFormsInstaller
 {
     public partial class Form1 : Form
     {
+        
         public Form1()
         {
             InitializeComponent();
@@ -15,6 +18,10 @@ namespace CorebergWindowsFormsInstaller
             comboBox2.SelectedIndex = 0;
             label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
         }
+
+        event SelectedToInstall Install;
+
+
 
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -189,11 +196,32 @@ namespace CorebergWindowsFormsInstaller
                 comboBox2.Enabled = false;
                 checkBox3.Enabled = false;
                 checkBox3.Checked = false;
+                if (!button1.Enabled)
+                {
+                    button1.Enabled = true;
+                }
             }
+
             if (checkBox2.Checked)
             {
                 comboBox2.Enabled = true;
                 checkBox3.Enabled = true;
+                if (comboBox2.SelectedIndex == 2)
+                {
+                    button1.Enabled = false;
+                }
+            }            
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedIndex == 2)
+            {
+                button1.Enabled = false;
+            }
+            if (comboBox2.SelectedIndex != 2)
+            {
+                button1.Enabled = true;
             }
         }
     }
