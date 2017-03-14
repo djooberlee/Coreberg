@@ -9,17 +9,17 @@ namespace CorebergWindowsFormsInstaller
 {
     public partial class Form1 : Form
     {
-        
+
         public Form1()
         {
             InitializeComponent();
             comboBox1.Items.AddRange(Clients.GetList);
-            comboBox1.SelectedIndex = 0;
+            comboBox1.SelectedIndex = 5;
             comboBox2.SelectedIndex = 0;
             label1.Text = "Для запуска нажмите \"НАЧАТЬ УСТАНОВКУ\"";
         }
 
-        event SelectedToInstall Install;
+
 
 
 
@@ -210,7 +210,7 @@ namespace CorebergWindowsFormsInstaller
                 {
                     button1.Enabled = false;
                 }
-            }            
+            }
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
