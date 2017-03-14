@@ -34,7 +34,7 @@ namespace CorebergWindowsFormsInstaller
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(textBox1.Text) > 100001 && Convert.ToInt32(textBox1.Text) < 999999)
+            if (Convert.ToInt32(textBox1.Text) > 100000 && Convert.ToInt32(textBox1.Text) < 999999)
             {
                 if (comboBox1.SelectedIndex != -1)
                 {
