@@ -71,7 +71,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(89, 20);
             this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "200001";
+            this.textBox1.Text = "000000";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // checkBox1
